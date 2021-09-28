@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.fragments.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_newCalfFragment"
+            app:destination="@id/newCalfFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_updateCalfFragment"
+            app:destination="@id/updateCalfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCalfFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.fragments.NewCalfFragment"
+        android:label="NewCalfFragment" >
+        <action
+            android:id="@+id/action_newCalfFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="calfId"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/updateCalfFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.fragments.UpdateCalfFragment"
+        android:label="UpdateCalfFragment" >
+        <argument
+            android:name="calfId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_updateCalfFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+
+    </fragment>
+</navigation>

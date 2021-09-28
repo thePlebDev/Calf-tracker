@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Elliott Tracker</string>
+    <string name="add_calf">Add Calf</string>
+    <string name="update_calf">Update Calf</string>
+</resources>
