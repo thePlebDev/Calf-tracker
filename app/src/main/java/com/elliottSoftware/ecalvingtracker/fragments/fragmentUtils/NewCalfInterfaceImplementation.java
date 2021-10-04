@@ -12,7 +12,13 @@ import java.util.Date;
 
 import androidx.fragment.app.FragmentActivity;
 
-//NOT SURE ABOUT THIS ALSO EXTENDING FRAGMENT
+/**
+ * NewCalfInterfaceImplementation is a class that implements the SaveCalfInterface and is used to
+ * provide methods to help facilitate activities related to saving calf instances
+ *
+ * @author Tristan Elliott
+ * @version 1.0
+ * **/
 public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
 
     private View view;
@@ -39,7 +45,6 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
         mCalfViewModel.insert(calf);
         return true;
     }
-
 
 
 

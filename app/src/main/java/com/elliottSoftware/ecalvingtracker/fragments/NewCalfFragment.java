@@ -10,9 +10,13 @@ import android.widget.RadioGroup;
 
 import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.FragmentMenuUtil;
 import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.NewCalfInterfaceImplementation;
+import com.elliottSoftware.ecalvingtracker.util.ButtonClickUtil;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSave;
 import com.example.ecalvingtracker.R;
 import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.SaveCalfInterface;
 import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -21,6 +25,8 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
     private EditText editTagNumber;
     private EditText editTextDescription;
     private EditText editTextCCIANumber;
+    private FloatingActionButton fabRight;
+    private FloatingActionButton fabLeft;
     private String sex = "Heifer";
 
 
@@ -58,6 +64,8 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
         editTextDescription = view.findViewById(R.id.edit_text_description);
         editTextCCIANumber = view.findViewById(R.id.edit_text_cciaNumber);
         radioGroup = view.findViewById(R.id.radioGroup);
+        fabRight = view.findViewById(R.id.new_calf_fab_right);
+        fabLeft = view.findViewById(R.id.new_calf_fab_left);
 
         //THIS MIGHT BE A DEPENDENCY INJECTION
         mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
@@ -72,7 +80,16 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
         femaleButton.setOnClickListener(this);
         maleButton.setOnClickListener(this);
 
+        //ADD THE CLICKS EVENTS TO THE FABs
+        fabRight.setOnClickListener(new ButtonNavigateHomeSave());
+
+        fabLeft.setOnClickListener(new ButtonNavigateHome());
+
+
+
     }
+
+
 
 
     @Override
