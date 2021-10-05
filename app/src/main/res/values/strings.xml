@@ -2,4 +2,6 @@
     <string name="app_name">Elliott Tracker</string>
     <string name="add_calf">Add Calf</string>
     <string name="update_calf">Update Calf</string>
+    <string name="tag_number">Please add tag number</string>
+    <string name="dismiss_tag_number">Dismiss</string>
 </resources>

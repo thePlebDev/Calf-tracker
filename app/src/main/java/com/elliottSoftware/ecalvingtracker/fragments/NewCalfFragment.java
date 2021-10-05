@@ -8,11 +8,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.FragmentMenuUtil;
 import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.NewCalfInterfaceImplementation;
-import com.elliottSoftware.ecalvingtracker.util.ButtonClickUtil;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSave;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
 import com.example.ecalvingtracker.R;
 import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.SaveCalfInterface;
 import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
@@ -20,12 +18,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 public class NewCalfFragment extends Fragment implements View.OnClickListener {
-    private EditText editTagNumber;
-    private EditText editTextDescription;
-    private EditText editTextCCIANumber;
+
     private FloatingActionButton fabRight;
     private FloatingActionButton fabLeft;
     private String sex = "Heifer";
@@ -60,9 +55,7 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
-        editTagNumber = view.findViewById(R.id.edit_text_title);
-        editTextDescription = view.findViewById(R.id.edit_text_description);
-        editTextCCIANumber = view.findViewById(R.id.edit_text_cciaNumber);
+
         radioGroup = view.findViewById(R.id.radioGroup);
         fabRight = view.findViewById(R.id.new_calf_fab_right);
         fabLeft = view.findViewById(R.id.new_calf_fab_left);
@@ -81,7 +74,7 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
         maleButton.setOnClickListener(this);
 
         //ADD THE CLICKS EVENTS TO THE FABs
-        fabRight.setOnClickListener(new ButtonNavigateHomeSave());
+        fabRight.setOnClickListener(new ButtonNavigateHomeSaveCalf(view));
 
         fabLeft.setOnClickListener(new ButtonNavigateHome());
 
@@ -101,13 +94,11 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
     //@Override
     public boolean saveCalfMenuButton() {
         //THIS METHOD RUNS THE SAVE METHOD INSIDE WHEN THE SAVE BUTTON IS CLICKED
-        String tagNumber = this.editTagNumber.getText().toString();
-        String description = this.editTextDescription.getText().toString();
-        String cciaNumber = this.editTextCCIANumber.getText().toString();
 
-        boolean value = newCalfUtil.saveNewCalfInstance(tagNumber,description,cciaNumber,sex);
 
-        return value;
+        //boolean value = newCalfUtil.saveNewCalfInstance(tagNumber,description,cciaNumber,sex);
+
+        return true;
     }
 
 
