@@ -18,10 +18,11 @@ import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.SaveCalfInter
 import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickListener {
+public class NewCalfFragment extends Fragment implements View.OnClickListener {
     private EditText editTagNumber;
     private EditText editTextDescription;
     private EditText editTextCCIANumber;
@@ -40,7 +41,6 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
     //SHOULD HAVE ANOTHER CLASS TO HANDLE THE SHARED METHODS
 
     public NewCalfFragment(){
-
     }
 
     @Override
@@ -91,14 +91,14 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
 
 
 
-
+    /**THIS CAN GET REMOVED TO MY BUTTON UTILS**/
     @Override
     public void onClick(View v) {
 
         this.sex = newCalfUtil.checkButton(v,radioGroup);
     }
 
-    @Override
+    //@Override
     public boolean saveCalfMenuButton() {
         //THIS METHOD RUNS THE SAVE METHOD INSIDE WHEN THE SAVE BUTTON IS CLICKED
         String tagNumber = this.editTagNumber.getText().toString();
@@ -110,9 +110,5 @@ public class NewCalfFragment extends FragmentMenuUtil implements View.OnClickLis
         return value;
     }
 
-    @Override
-    public void navigate() {
-        Navigation.findNavController(view).navigate(R.id.action_newCalfFragment_to_mainFragment);
-    }
 
 }

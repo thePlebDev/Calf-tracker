@@ -25,6 +25,13 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
     private CalfViewModel mCalfViewModel;
     private FragmentActivity activity;
 
+    /**
+     * Used to instantiate the current View ViewModel and Activity
+     *
+     * @param view the fragments current view
+     * @param calfViewModel the ViewModel holding the information of the calf data
+     * @param activity the host activity for the current fragment
+     * **/
     public NewCalfInterfaceImplementation(View view,CalfViewModel calfViewModel,FragmentActivity activity){
         this.view = view;
         this.mCalfViewModel = calfViewModel;
@@ -32,6 +39,16 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
 
 
     }
+    /**
+     * Used to save a new Calf instance
+     *
+     * @param tagNumber  the tag number of the calf
+     * @param description the description of the calf
+     * @param cciaNumber  special number used by farmers for identification
+     * @param sex the identifier for if a calf is a bull or heifer
+     *
+     * @return a boolean depending if a tag number was entered by a user or not
+     * **/
     public boolean saveNewCalfInstance(String tagNumber, String description,
                          String cciaNumber, String sex ) {
 
@@ -47,7 +64,14 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
     }
 
 
-
+    /**
+     * Used to determine which radio button was clicked
+     *
+     * @param v the current view of the fragment
+     * @param radioGroup the radioGroup surrounding the heifer and bull buttons
+     *
+     * @return a String representing the button that was clicked
+     * **/
     public String checkButton(View v, RadioGroup radioGroup){
         int radioId = radioGroup.getCheckedRadioButtonId();
         RadioButton radioButton = v.findViewById(radioId);
