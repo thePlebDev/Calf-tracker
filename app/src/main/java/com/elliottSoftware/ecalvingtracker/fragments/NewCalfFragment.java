@@ -23,17 +23,10 @@ public class NewCalfFragment extends Fragment {
 
     private FloatingActionButton fabRight;
     private FloatingActionButton fabLeft;
-    private String sex = "Heifer";
-
-
-    private RadioGroup radioGroup;
 
     private CalfViewModel mCalfViewModel;
     private View view;
 
-    ////I FUCING HATE THIS
-    private SaveCalfInterface newCalfUtil; // is actually NewCalfInterfaceImplementation
-    //SHOULD HAVE ANOTHER CLASS TO HANDLE THE SHARED METHODS
 
     public NewCalfFragment(){
     }
@@ -56,13 +49,12 @@ public class NewCalfFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-        radioGroup = view.findViewById(R.id.radioGroup);
         fabRight = view.findViewById(R.id.new_calf_fab_right);
         fabLeft = view.findViewById(R.id.new_calf_fab_left);
 
         //THIS MIGHT BE A DEPENDENCY INJECTION
         mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
-        this.newCalfUtil = new NewCalfInterfaceImplementation(view,mCalfViewModel,getActivity());
+
 
         this.view = view;
 
