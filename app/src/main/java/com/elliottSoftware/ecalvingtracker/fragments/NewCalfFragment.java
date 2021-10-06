@@ -19,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-public class NewCalfFragment extends Fragment implements View.OnClickListener {
+public class NewCalfFragment extends Fragment {
 
     private FloatingActionButton fabRight;
     private FloatingActionButton fabLeft;
@@ -31,8 +31,8 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
     private CalfViewModel mCalfViewModel;
     private View view;
 
-    //WITH THIS WE ARE EXPLOTING POLYMORPHISM TO HANDLE ALL THE NEW CALF SPECIFIC CALLS
-    private SaveCalfInterface newCalfUtil;
+    ////I FUCING HATE THIS
+    private SaveCalfInterface newCalfUtil; // is actually NewCalfInterfaceImplementation
     //SHOULD HAVE ANOTHER CLASS TO HANDLE THE SHARED METHODS
 
     public NewCalfFragment(){
@@ -67,15 +67,9 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
         this.view = view;
 
 
-        //THE BUTTON STUFF STAYS HERE
-        RadioButton femaleButton = view.findViewById(R.id.radio_one);
-        RadioButton maleButton = view.findViewById(R.id.radio_two);
-        femaleButton.setOnClickListener(this);
-        maleButton.setOnClickListener(this);
 
         //ADD THE CLICKS EVENTS TO THE FABs
-        fabRight.setOnClickListener(new ButtonNavigateHomeSaveCalf(view));
-
+        fabRight.setOnClickListener(new ButtonNavigateHomeSaveCalf(view,mCalfViewModel));
         fabLeft.setOnClickListener(new ButtonNavigateHome());
 
 
@@ -84,22 +78,7 @@ public class NewCalfFragment extends Fragment implements View.OnClickListener {
 
 
 
-    /**THIS CAN GET REMOVED TO MY BUTTON UTILS**/
-    @Override
-    public void onClick(View v) {
 
-        this.sex = newCalfUtil.checkButton(v,radioGroup);
-    }
-
-    //@Override
-    public boolean saveCalfMenuButton() {
-        //THIS METHOD RUNS THE SAVE METHOD INSIDE WHEN THE SAVE BUTTON IS CLICKED
-
-
-        //boolean value = newCalfUtil.saveNewCalfInstance(tagNumber,description,cciaNumber,sex);
-
-        return true;
-    }
 
 
 }
