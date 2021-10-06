@@ -22,6 +22,9 @@ import java.util.concurrent.ExecutionException;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+/**
+ * TODO REFACTOR THIS CUNT!!!!!!!!!!!!!!!!!!!!!!!!!
+ * **/
 public class UpdateCalfFragment extends FragmentMenuUtil implements View.OnClickListener{
     private EditText updateTagNumber;
     private EditText updateTextDescription;
