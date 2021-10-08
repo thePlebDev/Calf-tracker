@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker;
+package com.elliottSoftware.ecalvingtracker.Views.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

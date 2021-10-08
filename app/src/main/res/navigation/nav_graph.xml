@@ -6,22 +6,28 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.elliottSoftware.ecalvingtracker.fragments.MainFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.Views.fragments.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_newCalfFragment"
-            app:destination="@id/newCalfFragment" />
+            app:destination="@id/newCalfFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_mainFragment_to_updateCalfFragment"
-            app:destination="@id/updateCalfFragment" />
+            app:destination="@id/updateCalfFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/newCalfFragment"
-        android:name="com.elliottSoftware.ecalvingtracker.fragments.NewCalfFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.Views.fragments.NewCalfFragment"
         android:label="NewCalfFragment" >
         <action
             android:id="@+id/action_newCalfFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left" />
         <argument
             android:name="calfId"
             app:argType="integer" />
@@ -29,14 +35,16 @@
     </fragment>
     <fragment
         android:id="@+id/updateCalfFragment"
-        android:name="com.elliottSoftware.ecalvingtracker.fragments.UpdateCalfFragment"
+        android:name="com.elliottSoftware.ecalvingtracker.Views.fragments.UpdateCalfFragment"
         android:label="UpdateCalfFragment" >
         <argument
             android:name="calfId"
             app:argType="integer" />
         <action
             android:id="@+id/action_updateCalfFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_in_left" />
 
     </fragment>
 </navigation>

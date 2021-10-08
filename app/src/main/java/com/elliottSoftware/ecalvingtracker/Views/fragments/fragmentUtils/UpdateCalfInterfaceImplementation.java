@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils;
+package com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils;
 
 import android.view.View;
 import android.widget.RadioButton;
@@ -6,7 +6,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
-import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
+import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 
 import java.util.Date;
 

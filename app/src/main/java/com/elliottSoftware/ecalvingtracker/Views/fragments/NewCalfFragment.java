@@ -1,19 +1,14 @@
-package com.elliottSoftware.ecalvingtracker.fragments;
+package com.elliottSoftware.ecalvingtracker.Views.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
-import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.NewCalfInterfaceImplementation;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
 import com.example.ecalvingtracker.R;
-import com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils.SaveCalfInterface;
-import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
+import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;

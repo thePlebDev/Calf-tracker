@@ -1,9 +1,9 @@
-package com.elliottSoftware.ecalvingtracker.factory;
+package com.elliottSoftware.ecalvingtracker.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateFormatFactory implements Format{
+public class DateFormatFactory implements Format {
 
     private Date date;
     private String pattern = "yyyy-MM-dd";

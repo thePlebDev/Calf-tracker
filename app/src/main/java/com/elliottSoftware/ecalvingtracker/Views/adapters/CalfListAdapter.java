@@ -1,9 +1,9 @@
-package com.elliottSoftware.ecalvingtracker.models.adapters;
+package com.elliottSoftware.ecalvingtracker.Views.adapters;
 
 import android.view.ViewGroup;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
-import com.elliottSoftware.ecalvingtracker.models.adapters.viewHolder.CalfViewHolder;
+import com.elliottSoftware.ecalvingtracker.Views.adapters.viewHolder.CalfViewHolder;
 
 import java.util.Date;
 

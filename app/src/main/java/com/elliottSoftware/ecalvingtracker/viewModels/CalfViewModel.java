@@ -1,7 +1,8 @@
-package com.elliottSoftware.ecalvingtracker.models;
+package com.elliottSoftware.ecalvingtracker.viewModels;
 
 import android.app.Application;
 
+import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 
 import java.util.List;

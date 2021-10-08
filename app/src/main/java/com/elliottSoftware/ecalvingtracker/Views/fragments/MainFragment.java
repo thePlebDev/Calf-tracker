@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.fragments;
+package com.elliottSoftware.ecalvingtracker.Views.fragments;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,10 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
-import com.elliottSoftware.ecalvingtracker.fragments.MainFragmentDirections;
-import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
-import com.elliottSoftware.ecalvingtracker.models.adapters.CalfListAdapter;
+import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
+import com.elliottSoftware.ecalvingtracker.Views.adapters.CalfListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
@@ -25,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener{
     private RecyclerView recyclerView;
     private CalfViewModel mCalfViewModel;
+
+    private SnackBarBase snackBarCreation;
+    private View Globalview;
 
     public MainFragment(){
         super(R.layout.main_fragmenr);
@@ -47,7 +50,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         switch(item.getItemId()){
             case R.id.delete_all:{
                 mCalfViewModel.deleteAll();
-                Toast.makeText(getActivity(),"DELETED ALL CALVES", Toast.LENGTH_SHORT).show();
+                snackBarCreation.createSnackbarDeleteAllCalves(Globalview);
                 return true;
             }
             default:
@@ -57,8 +60,9 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
 
     public void onViewCreated (View view, Bundle savedInstanceState){
+        Globalview = view;
         final CalfListAdapter adapter = new CalfListAdapter(new CalfListAdapter.CalfDiff(),this);
-
+        snackBarCreation = new SnackBarBase();
         //getActivity() MIGHT HAVE TO BE CHANGED TO this
         mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
         mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
@@ -84,7 +88,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             mCalfViewModel.delete(adapter.getCalfAt(viewHolder.getAdapterPosition()));
-            Toast.makeText(getActivity(),"Calf deleted",Toast.LENGTH_SHORT).show();
+                snackBarCreation.createSnackbarCalfDeleted(Globalview);
 
             }
         }).attachToRecyclerView(recyclerView);

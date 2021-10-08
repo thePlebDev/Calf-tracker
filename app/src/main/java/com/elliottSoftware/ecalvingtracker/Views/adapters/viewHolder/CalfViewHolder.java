@@ -1,14 +1,14 @@
-package com.elliottSoftware.ecalvingtracker.models.adapters.viewHolder;
+package com.elliottSoftware.ecalvingtracker.Views.adapters.viewHolder;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.elliottSoftware.ecalvingtracker.factory.DateFormatFactory;
-import com.elliottSoftware.ecalvingtracker.factory.Format;
+import com.elliottSoftware.ecalvingtracker.util.DateFormatFactory;
+import com.elliottSoftware.ecalvingtracker.util.Format;
 import com.example.ecalvingtracker.R;
-import com.elliottSoftware.ecalvingtracker.models.adapters.CalfListAdapter;
+import com.elliottSoftware.ecalvingtracker.Views.adapters.CalfListAdapter;
 
 import java.util.Date;
 

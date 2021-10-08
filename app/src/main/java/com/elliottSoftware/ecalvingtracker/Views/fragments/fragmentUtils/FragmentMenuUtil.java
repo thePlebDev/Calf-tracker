@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils;
+package com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +9,6 @@ import com.example.ecalvingtracker.R;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.Navigation;
 
 public abstract class FragmentMenuUtil extends Fragment {
     //THIS CLASS SHOULD HANDLE ALL THE MENU STUFF

@@ -3,7 +3,7 @@ package com.elliottSoftware.ecalvingtracker.models;
 import android.content.Context;
 
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
-import com.elliottSoftware.ecalvingtracker.typeConverters.DateTypeConverter;
+import com.elliottSoftware.ecalvingtracker.util.typeConverters.DateTypeConverter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

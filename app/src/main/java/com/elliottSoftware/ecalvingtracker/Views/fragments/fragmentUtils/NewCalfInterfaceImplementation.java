@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils;
+package com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils;
 
 import android.view.View;
 import android.widget.RadioButton;
@@ -6,7 +6,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
-import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
+import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 
 import java.util.Date;
 
@@ -25,20 +25,6 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
     private CalfViewModel mCalfViewModel;
     private FragmentActivity activity;
 
-    /**
-     * Used to instantiate the current View ViewModel and Activity
-     *
-     * @param view the fragments current view
-     * @param calfViewModel the ViewModel holding the information of the calf data
-     * @param activity the host activity for the current fragment
-     * **/
-    public NewCalfInterfaceImplementation(View view,CalfViewModel calfViewModel,FragmentActivity activity){
-        this.view = view;
-        this.mCalfViewModel = calfViewModel;
-        this.activity = activity;
-
-
-    }
     /**
      * Used to save a new Calf instance
      *

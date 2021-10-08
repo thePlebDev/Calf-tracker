@@ -1,11 +1,7 @@
-package com.elliottSoftware.ecalvingtracker.fragments.fragmentUtils;
+package com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils;
 
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import androidx.fragment.app.FragmentActivity;
 
 /**
  * SaveCalfInterface is a interface for all classes that need to implement functionality related to

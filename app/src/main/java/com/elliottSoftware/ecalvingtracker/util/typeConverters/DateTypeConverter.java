@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.typeConverters;
+package com.elliottSoftware.ecalvingtracker.util.typeConverters;
 
 import java.util.Date;
 

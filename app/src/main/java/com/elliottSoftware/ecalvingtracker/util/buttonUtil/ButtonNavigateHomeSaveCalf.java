@@ -6,15 +6,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
-import com.elliottSoftware.ecalvingtracker.models.CalfViewModel;
+import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Date;
-
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Class contains all the necessary parts for saving an instance of the calf model
@@ -59,6 +55,17 @@ public class ButtonNavigateHomeSaveCalf extends ButtonNavigateHome{
         setHeiferBullButtonListeners();
 
 
+    }
+
+    /**
+     * constructor to be called when there needs to be different action used for
+     * the navigation component
+     *
+     *
+     * **/
+    public ButtonNavigateHomeSaveCalf(View view, CalfViewModel viewModel,int navigationAction){
+        this(view,viewModel);
+        super.setNavigationId(navigationAction);
     }
 
 /**

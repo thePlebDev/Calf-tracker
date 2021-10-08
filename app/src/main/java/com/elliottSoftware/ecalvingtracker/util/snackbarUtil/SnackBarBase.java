@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
  * **/
 public class SnackBarBase implements View.OnClickListener{
 
+
+
     /**
      * Made to create a Snack bar stating to please enter a tag number
      *
@@ -20,6 +22,21 @@ public class SnackBarBase implements View.OnClickListener{
         Snackbar.make(view, R.string.tag_number,Snackbar.LENGTH_SHORT)
                 .setAction(R.string.dismiss_tag_number, this).show();
     }
+
+    public void createSnackbarCalfUpdated(View view, String tagNumber){
+        Snackbar.make(view, tagNumber + " updated",Snackbar.LENGTH_SHORT)
+                .setAction(R.string.dismiss_tag_number, this).show();
+    }
+
+    public void createSnackbarCalfDeleted(View view){
+        Snackbar.make(view, "Calf Deleted",Snackbar.LENGTH_SHORT)
+                .setAction(R.string.dismiss_tag_number, this).show();
+    }
+    public void createSnackbarDeleteAllCalves(View view){
+        Snackbar.make(view, "All calves deleted",Snackbar.LENGTH_SHORT)
+                .setAction(R.string.dismiss_tag_number, this).show();
+    }
+
 
     /**
      * Made to create a Snack bar notifying the user of a successful saving of the calf instance
