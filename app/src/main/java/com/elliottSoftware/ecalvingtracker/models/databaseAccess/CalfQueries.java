@@ -29,6 +29,7 @@ public class CalfQueries {
         this.mCalfViewModel = calfViewModel;
         this.calfId = calfId;
 
+        retrieveCalfFromViewModel();
 
     }
 
@@ -44,6 +45,8 @@ public class CalfQueries {
                 this.tagNumber = this.calf.getTagNumber();
                 this.details = this.calf.getDetails();
                 this.cciaNumber = this.calf.getCciaNumber();
+                this.sex = this.calf.getSex();
+                this.date = this.calf.getDate();
 
 
 
@@ -71,10 +74,10 @@ public class CalfQueries {
         return cciaNumber;
     }
     public String getCalfSex(){
-        return calf.getSex();
+        return sex;
     }
     public Date getCalfDate(){
-        return calf.getDate();
+        return date;
     }
 
 

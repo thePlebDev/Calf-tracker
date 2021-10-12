@@ -25,7 +25,7 @@ public class ButtonNavigateHomeSaveCalf extends ButtonNavigateHome{
     private EditText cciaNumber;
     private RadioButton femaleButton;
     private RadioButton maleButton;
-    private String sex = "heifer";
+    private String sex = "Heifer";
 
     private CalfViewModel mCalfViewModel;
 
@@ -51,7 +51,7 @@ public class ButtonNavigateHomeSaveCalf extends ButtonNavigateHome{
 
          mCalfViewModel = viewModel;
 
-        snackBarCreation = new SnackBarBase(); //THIS SHOULD BE INJECTED
+        snackBarCreation = new SnackBarBase(); //THIS SHOULD BE INJECTED?
         setHeiferBullButtonListeners();
 
 
