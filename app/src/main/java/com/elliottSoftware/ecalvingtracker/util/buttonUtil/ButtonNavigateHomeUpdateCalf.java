@@ -12,34 +12,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 
+import androidx.navigation.Navigation;
+
 /**
- * Class contains all the necessary components to update the Calf instance and
- * navigate back to MainFragment it extends and inherits all of the fields from
- * ButtonHavigateHome
- *
- * - So I am thinking about having a third class that implements everything and
- * then have it take two classes that will be used for the FAB left and right buttons
- * - Is that what a factory is ?
+ * this classes job is handle all the necessary business logic that is responsible for
+ * updating the calf
  * **/
 public class ButtonNavigateHomeUpdateCalf extends ButtonNavigateHome{
-    private EditText updateTagNumber;
-    private EditText updateTextDescription;
-    private EditText updateCciaNumber;
-    private RadioGroup updateRadioGroup;
-    private RadioButton femaleButton;
-    private RadioButton maleButton;
-    /**
-     * TODO: JUST HOOK THESE TWO UP FIRST
-     * **/
-    private FloatingActionButton fabRight;
-    private FloatingActionButton fabLeft;
-    private int calfId;
-    private String sex;
-    private Date date;
-    private CalfViewModel mCalfViewModel;
 
-    public ButtonNavigateHomeUpdateCalf(View view){
-        this.fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
+
+    public ButtonNavigateHomeUpdateCalf(){
+        super(R.id.action_updateCalfFragment_to_mainFragment);// navigates back to the Main Fragment
+
+    }
+
+    /**
+     * this method will get called when the button is clicked
+     * **/
+    @Override
+    public void buttonAction(View view) {
+
     }
 
 
@@ -48,6 +41,31 @@ public class ButtonNavigateHomeUpdateCalf extends ButtonNavigateHome{
 
     }
 
+    /**
+     * TODO: FIGURE OUT HOW THIS CAN BE REFACTORED
+     * **/
+//    public void saveCalfMenuButton(View view) {
+//
+//        String tagNumber = newUpdateCalfViewInitialization.getUpdateTagNumber();
+//        String description = newUpdateCalfViewInitialization.getUpdateTextDescription();
+//        String cciaNumber = newUpdateCalfViewInitialization.getUpdateCciaNumber();
+//        String sex = newUpdateCalfViewInitialization.getSex();
+//
+//        Date date = this.date;
+//        int calfId = this.calfId;
+//
+//        // NEEDS THE ID TO UPDATE
+//        Calf calf = new Calf(calfId,tagNumber,description,date,sex,cciaNumber);
+//
+//        mCalfViewModel.updateCalf(calf);
+//
+//        Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment);
+//        snackBarCreation.createSnackbarCalfUpdated(view,tagNumber);
+//
+//
+//
+//
+//    }
 
 
 }

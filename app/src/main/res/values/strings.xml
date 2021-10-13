@@ -4,4 +4,5 @@
     <string name="update_calf">Update Calf</string>
     <string name="tag_number">Please add tag number</string>
     <string name="dismiss_tag_number">Dismiss</string>
+    <string name="search_hint">Search tag number</string>
 </resources>

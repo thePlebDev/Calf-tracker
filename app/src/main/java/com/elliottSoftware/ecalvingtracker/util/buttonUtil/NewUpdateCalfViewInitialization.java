@@ -6,6 +6,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.ecalvingtracker.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**The job of this class is to initialize the shared view widgets
  * between the update and save calf instances. Also, provide methods
@@ -27,6 +28,9 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
     private RadioButton femaleButton;
     private RadioButton maleButton;
 
+    private FloatingActionButton fabRight;
+    private FloatingActionButton fabLeft;
+
     public NewUpdateCalfViewInitialization(View view){
         updateTagNumber = view.findViewById(R.id.edit_text_title);
         updateTextDescription = view.findViewById(R.id.edit_text_description);
@@ -36,8 +40,13 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
         femaleButton = view.findViewById(R.id.radio_one);
         maleButton = view.findViewById(R.id.radio_two);
 
+        fabRight = view.findViewById(R.id.new_calf_fab_right);
+        fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
         femaleButton.setOnClickListener(this::onClick);
         maleButton.setOnClickListener(this::onClick);
+
+        fabLeft.setOnClickListener(new ButtonNavigateHome(R.id.action_updateCalfFragment_to_mainFragment));
 
 
     }
@@ -57,6 +66,12 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
     }
     public RadioGroup getUpdateRadioGroup(){
         return this.updateRadioGroup;
+    }
+    public FloatingActionButton getFabRight(){
+        return this.fabRight;
+    }
+    public FloatingActionButton getFabLeft(){
+        return this.fabLeft;
     }
     //SETTERS
     public void setUpdateTagNumber(String tagNumber){

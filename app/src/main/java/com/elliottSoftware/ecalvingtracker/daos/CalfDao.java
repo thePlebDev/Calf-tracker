@@ -34,4 +34,7 @@ public interface CalfDao {
     //WHERE FILTERS OUT UNWANTED ROWS
     @Query("SELECT * FROM calf_table WHERE id = :calfId")
     public Calf getCalf(int calfId);
+
+    @Query("SELECT * FROM calf_table WHERE tagNumber = :tagNumber")
+    LiveData<List<Calf>> searchCalfTagNumber(String tagNumber);
 }

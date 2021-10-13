@@ -29,13 +29,24 @@ public class CalfViewModel extends AndroidViewModel {
         return mAllCalves;
     }
 
-    //we might do the checking here
+   /**
+    * GETS THE CALF WITH THE MATCHING ID
+    * **/
     public Calf getCalf(int calfId) throws ExecutionException, InterruptedException {
 
        Calf calf = mRepository.getCalf(calfId);
         return calf;
 
     }
+
+    /**
+     * returns the all the calves with the matching tagNumbers
+     * **/
+    public LiveData<List<Calf>> getCalvesWithMatchingTagNumber(String tagNumber) throws ExecutionException, InterruptedException {
+        LiveData<List<Calf>> calves = mRepository.getCalvesTagNumber(tagNumber);
+        return calves;
+    }
+
 
     public void insert(Calf calf){
         mRepository.insert(calf);

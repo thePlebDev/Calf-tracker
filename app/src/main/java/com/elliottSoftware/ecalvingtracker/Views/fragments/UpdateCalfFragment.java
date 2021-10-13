@@ -36,11 +36,7 @@ public class UpdateCalfFragment extends Fragment{
     private int calfId;//not shared
     private Date date; //not shared
 
-    private FloatingActionButton fabRight;
-    private FloatingActionButton fabLeft;
-
-
-    private CalfViewModel mCalfViewModel;
+    private CalfViewModel mCalfViewModel; //possibly shared
 
     private SnackBarBase snackBarCreation;
     private CalfQueries calfQueries;
@@ -56,37 +52,12 @@ public class UpdateCalfFragment extends Fragment{
         return view;
     }
 
-    /**
-     * used to save a new calf instance
-     * TODO change this over to the new buttons
-     * **/
-    public void saveCalfMenuButton(View view) {
 
-        String tagNumber = newUpdateCalfViewInitialization.getUpdateTagNumber();
-        String description = newUpdateCalfViewInitialization.getUpdateTextDescription();
-        String cciaNumber = newUpdateCalfViewInitialization.getUpdateCciaNumber();
-        String sex = newUpdateCalfViewInitialization.getSex();
-        Date date = this.date;
-        int calfId = this.calfId;
-
-        // NEEDS THE ID TO UPDATE
-        Calf calf = new Calf(calfId,tagNumber,description,date,sex,cciaNumber);
-
-        mCalfViewModel.updateCalf(calf);
-
-        Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment);
-        snackBarCreation.createSnackbarCalfUpdated(view,tagNumber);
-
-
-
-
-    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
 
 
     }
@@ -104,25 +75,12 @@ public class UpdateCalfFragment extends Fragment{
         this.newUpdateCalfViewInitialization = new NewUpdateCalfViewInitialization(view);
 
         // THIS IS WHAT WE WANT TO MAKE REUSABLE
-        /**
-         * TODO: maybe get rid of this saveCalfUtil interface
-         * Not even sure, what the calfUtil does
-         * **/
+
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
 
 
-        //WE MIGHT BE ABLE TO MOVE THIS ALL OVER TO THE ButtonNavigationHomeSaveCalf class
 
-
-
-
-        fabRight = view.findViewById(R.id.new_calf_fab_right);
-        fabLeft = view.findViewById(R.id.new_calf_fab_left);
-
-        fabLeft.setOnClickListener(new ButtonNavigateHome(R.id.action_updateCalfFragment_to_mainFragment));
-
-        fabRight.setOnClickListener(this::saveCalfMenuButton);
-
+        newUpdateCalfViewInitialization.getFabRight().setOnClickListener(this::saveCalfMenuButton);
 
 
 
@@ -158,6 +116,32 @@ public class UpdateCalfFragment extends Fragment{
         }
     }
 
+    /**
+     * used to update a  calf instance
+     * TODO change this over to the new buttons
+     * **/
+    public void saveCalfMenuButton(View view) {
+
+        String tagNumber = newUpdateCalfViewInitialization.getUpdateTagNumber();
+        String description = newUpdateCalfViewInitialization.getUpdateTextDescription();
+        String cciaNumber = newUpdateCalfViewInitialization.getUpdateCciaNumber();
+        String sex = newUpdateCalfViewInitialization.getSex();
+
+        Date date = this.date;
+        int calfId = this.calfId;
+
+        // NEEDS THE ID TO UPDATE
+        Calf calf = new Calf(calfId,tagNumber,description,date,sex,cciaNumber);
+
+        mCalfViewModel.updateCalf(calf);
+
+        Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment);
+        snackBarCreation.createSnackbarCalfUpdated(view,tagNumber);
+
+
+
+
+    }
 
 
 
