@@ -85,6 +85,8 @@ public class NewCalfFragment extends Fragment {
         mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
         this.view = view;
 
+
+        //THIS MIGHT BE A DEPENDENCY INJECTION
         //ADD THE CLICKS EVENTS TO THE FABs
         fabRight.setOnClickListener(new ButtonNavigateHomeSaveCalf(view,mCalfViewModel));
         fabLeft.setOnClickListener(new ButtonNavigateHome());

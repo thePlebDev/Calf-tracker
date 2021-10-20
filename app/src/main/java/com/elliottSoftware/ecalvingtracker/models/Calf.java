@@ -3,16 +3,27 @@ package com.elliottSoftware.ecalvingtracker.models;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "calf_table")
 public class Calf {
+    @NonNull
+    @ColumnInfo(name = "tagNumber")
     private String tagNumber;
+
+    @ColumnInfo(name = "sex")
     private String sex;
+
+    @ColumnInfo(name = "cciaNumber")
     private String cciaNumber;
+
+    @ColumnInfo(name = "date")
     private Date date;
+
+    @ColumnInfo(name = "details")
     private String details;
 
     @PrimaryKey(autoGenerate = true)
