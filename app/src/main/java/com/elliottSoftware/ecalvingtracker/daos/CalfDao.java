@@ -21,7 +21,7 @@ public interface CalfDao {
     void delete(Calf calf);
 
     @Update
-    public void updateCalf(Calf calf);
+    void updateCalf(Calf calf);
 
 
     @Query("DELETE FROM calf_table")

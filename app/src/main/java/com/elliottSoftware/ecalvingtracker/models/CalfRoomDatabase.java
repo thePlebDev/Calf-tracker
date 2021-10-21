@@ -14,12 +14,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
+/**
+ * TODO: set exportSchema to true when doing a database migration
+ * **/
 @Database(entities = {Calf.class},version = 1,exportSchema = false)
 @TypeConverters({DateTypeConverter.class})
 public abstract class CalfRoomDatabase  extends RoomDatabase {
 
-    public abstract CalfDao calfDao();
+    public abstract CalfDao getCalfDao();
 
     private static volatile CalfRoomDatabase INSTANCE; //VOLATILE PROTECTS AGAINST MEMORY INCONSISTENCIES
     private static final int NUMBER_OF_THREADS = 4;
@@ -41,6 +43,10 @@ public abstract class CalfRoomDatabase  extends RoomDatabase {
         return INSTANCE;
     }
 
+    /**
+     * called when the database is created for the first time
+     * we are deleting everything???
+     * **/
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
 
         @Override
@@ -48,7 +54,7 @@ public abstract class CalfRoomDatabase  extends RoomDatabase {
             super.onCreate(db);
 
             databaseWriteExecutor.execute(()->{
-                CalfDao dao = INSTANCE.calfDao();
+                CalfDao dao = INSTANCE.getCalfDao();
                 dao.deleteAll();
             });
         }

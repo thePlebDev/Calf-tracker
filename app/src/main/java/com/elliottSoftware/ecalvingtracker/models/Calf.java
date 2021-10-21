@@ -48,6 +48,8 @@ public class Calf {
 
     }
 
+
+
     //GETTERS
     public String getTagNumber(){
         return this.tagNumber;

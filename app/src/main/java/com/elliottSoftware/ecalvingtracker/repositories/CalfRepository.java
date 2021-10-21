@@ -22,7 +22,7 @@ public class CalfRepository {
 
     public CalfRepository(Application application){
         CalfRoomDatabase db = CalfRoomDatabase.getDatabase(application);
-        mCalfDao = db.calfDao();
+        mCalfDao = db.getCalfDao();
         mAllCalves = mCalfDao.getAllCalves();
     }
 
