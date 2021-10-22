@@ -14,16 +14,21 @@ import androidx.test.core.app.ApplicationProvider;
 
 public class CalfDatabaseTest {
 
-    private volatile CalfRoomDatabase calfDatabase; // volatile allows all threads to see the changes made
-    private static final int NUMBER_OF_THREADS = 4;
-    public static final ExecutorService databaseWriteExecutor =
+    protected volatile CalfRoomDatabase calfDatabase; // volatile allows all threads to see the changes made
+
+    private  static final int NUMBER_OF_THREADS = 4;
+
+    protected static  final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-
+    /**
+     * GIVE ACCESS TO THE CALF DAO
+     * **/
     public CalfDao getCalfDao(){
-        // THE getCalfDao() NEEDS TO BE IMPLEMENTED
-        return calfDatabase.getCalfDao(); // so this is the a
+        // IMPLEMENTED BY ROOM
+        return calfDatabase.getCalfDao();
     }
+
 
         /**
          * THIS WILL RUN BEFORE EACH TEST

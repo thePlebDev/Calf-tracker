@@ -13,32 +13,26 @@ import java.util.concurrent.Future;
 
 public class CalfDaoTest extends CalfDatabaseTest{
 
-    Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
-
-
     @Test
-    public void insertReadDelete() throws Exception{
+    public void insertTest() throws Exception{
         //INSERT
-        // we need a future so that it will block until it happens correctly
+        Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        int testingReturnValue = 1;
 
-        int testingReturn = 1;
-
-        Future<Integer> calf =  CalfRoomDatabase
-                .databaseWriteExecutor.submit(new Runnable() {
+        //
+        Future<Integer> calf =  CalfDatabaseTest
+                .databaseWriteExecutor.submit(new Runnable() { // RUNNABLE WITH RETURN VALUE UPON SUCCESS
                     @Override
                     public void run() {
                         getCalfDao().insert(calfTest1);
                     }
-                }, testingReturn);
+                }, testingReturnValue); //RETURN A FUTURE OBJECT
 
-            int returningCalf = calf.get(); //This will block
+            int returningCalfValue = calf.get(); //This will block and get the runnable return value
 
-        Assert.assertEquals(testingReturn,returningCalf);
+        Assert.assertEquals(testingReturnValue,returningCalfValue);
 
-        //READ
-        //THIS COULD BE MORE ASYNC CODE TO GET THE CALF WITH THE ID
 
-        //ASSERT
 
     }
 }
