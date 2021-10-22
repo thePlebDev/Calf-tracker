@@ -21,5 +21,6 @@ local.properties
 *.aab
 
 #release folder
-release/
+app/release
+
 
