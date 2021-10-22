@@ -19,7 +19,6 @@ local.properties
 *.aar
 *.ap_
 *.aab
-app/release
 
 
 
