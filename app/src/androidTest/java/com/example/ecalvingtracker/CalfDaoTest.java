@@ -20,8 +20,7 @@ public class CalfDaoTest extends CalfDatabaseTest{
         int testingReturnValue = 1;
 
         //
-        Future<Integer> calf =  CalfDatabaseTest
-                .databaseWriteExecutor.submit(new Runnable() { // RUNNABLE WITH RETURN VALUE UPON SUCCESS
+        Future<Integer> calf = databaseWriteExecutor.submit(new Runnable() { // RUNNABLE WITH RETURN VALUE UPON SUCCESS
                     @Override
                     public void run() {
                         getCalfDao().insert(calfTest1);
