@@ -60,8 +60,18 @@ public class CalfDaoTest extends CalfDatabaseTest{
     }
 
     @Test
-    public void deleteTest(){
+    public void deleteTest() throws Exception {
+        //INSERT
+        DeleteUtil deleteUtil = new DeleteUtil(calfDatabase);
+        deleteUtil.insertCalf(calfTest1);
 
+        //DELETE
+        deleteUtil.deleteCalf(calfTest1);
+
+        //RETRIEVE
+        Calf returnedCalf = deleteUtil.retrieveCalf(1);//THIS WILL BE A ERROR BUT WHAT KIND?
+
+        Assert.assertEquals(null,returnedCalf);
     }
     @Test
     public void deleteAll(){
