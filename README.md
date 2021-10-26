@@ -10,7 +10,7 @@ If you have any suggestions on features you would like to see, please reach out 
 ### Upcoming Features
 - improved UI
 - search functionality
-- birth weight and aditional tag numbers
+- birth weight and additional tag numbers
 
 ### Install
 - can be found on the google play store, [HERE](https://play.google.com/store/apps/details?id=com.elliottSoftware.ecalvingtracker&hl=en&gl=US)
