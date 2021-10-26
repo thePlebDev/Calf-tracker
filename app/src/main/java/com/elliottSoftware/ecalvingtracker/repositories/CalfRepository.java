@@ -21,8 +21,9 @@ public class CalfRepository {
     //FOR NOW IT IS FINE
 
     public CalfRepository(Application application){
+
         CalfRoomDatabase db = CalfRoomDatabase.getDatabase(application);
-        mCalfDao = db.getCalfDao();
+        mCalfDao = db.getCalfDao(); //DEPENDENCY INJECTION, SHOULD BE IN CONSTRUCTOR
         mAllCalves = mCalfDao.getAllCalves();
     }
 
@@ -51,18 +52,8 @@ public class CalfRepository {
     }
 /**
  * method used to get calves from the database that have the matching tagNumber
+ * TODO: ACTUA
  * **/
-    public LiveData<List<Calf>> getCalvesTagNumber(String tagNumber) throws ExecutionException, InterruptedException {
-        Future<LiveData<List<Calf>>> tagNumberCalves = CalfRoomDatabase
-                .databaseWriteExecutor.submit(new Callable<LiveData<List<Calf>>>() {
-                    @Override
-                    public LiveData<List<Calf>> call() throws Exception {
-                        return mCalfDao.searchCalfTagNumber(tagNumber);
-                    }
-                });
-        LiveData<List<Calf>> calvesWithMatchingTags = tagNumberCalves.get();
-        return calvesWithMatchingTags;
-    }
 
 
 

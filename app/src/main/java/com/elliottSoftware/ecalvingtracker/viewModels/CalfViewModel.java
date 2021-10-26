@@ -39,14 +39,6 @@ public class CalfViewModel extends AndroidViewModel {
 
     }
 
-    /**
-     * returns the all the calves with the matching tagNumbers
-     * **/
-    public LiveData<List<Calf>> getCalvesWithMatchingTagNumber(String tagNumber) throws ExecutionException, InterruptedException {
-        LiveData<List<Calf>> calves = mRepository.getCalvesTagNumber(tagNumber);
-        return calves;
-    }
-
 
     public void insert(Calf calf){
         mRepository.insert(calf);

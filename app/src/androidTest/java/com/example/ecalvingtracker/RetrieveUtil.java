@@ -13,7 +13,7 @@ public class RetrieveUtil extends InsertUtil {
     }
 
     public Calf retrieveCalf(int calfId) throws ExecutionException, InterruptedException {
-        Future<Calf> returnedCalf = getCalfDatabase().databaseWriteExecutor.submit(new Callable<Calf>() {
+        Future<Calf> returnedCalf = calfDatabase.databaseWriteExecutor.submit(new Callable<Calf>() {
             @Override
             public Calf call() {
                 return getCalfDatabase().getCalfDao().getCalf(calfId);

@@ -14,3 +14,9 @@ If you have any suggestions on features you would like to see, please reach out 
 
 ### Install
 - can be found on the google play store, [HERE](https://play.google.com/store/apps/details?id=com.elliottSoftware.ecalvingtracker&hl=en&gl=US)
+
+
+### Contribute
+
+- Want to help me build this app? Message me on [twitter](https://twitter.com/TristAndroidDev) and we can set up a proper workflow for contributing
+

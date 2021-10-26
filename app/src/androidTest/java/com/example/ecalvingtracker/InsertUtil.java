@@ -11,9 +11,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class InsertUtil {
-    private volatile CalfRoomDatabase calfDatabase;
+    protected static volatile CalfRoomDatabase calfDatabase;
 
-    private Calf calfTest;
     private int returnedInsertValue =1;
 
     public InsertUtil(CalfRoomDatabase calfDatabase){
@@ -29,24 +28,28 @@ public class InsertUtil {
                 calfDatabase.getCalfDao().insert(insertCalf);
             }
         }, returnedInsertValue); //RETURN A FUTURE OBJECT
+
         int returnedValue = calf.get();
 
         return returnedValue; //This will block and get the runnable return value
     }
 
-
-    //SETTERS
-    public void setCalfTest(Calf calfTest){
-        this.calfTest = calfTest;
-    }
-    public void setReturnedInsertValue(int value){
-        this.returnedInsertValue = value;
-    }
-
     //GETTERS
     public CalfRoomDatabase getCalfDatabase(){
-        return this.calfDatabase;
+        return calfDatabase;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

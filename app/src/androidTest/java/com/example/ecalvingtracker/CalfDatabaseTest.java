@@ -15,9 +15,7 @@ import androidx.test.core.app.ApplicationProvider;
 public class CalfDatabaseTest {
 
     protected volatile CalfRoomDatabase calfDatabase; // volatile allows all threads to see the changes made
-
     private  static final int NUMBER_OF_THREADS = 4;
-
     protected static  final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
@@ -49,3 +47,18 @@ public class CalfDatabaseTest {
         calfDatabase.close();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

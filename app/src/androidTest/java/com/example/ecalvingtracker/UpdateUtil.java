@@ -21,7 +21,7 @@ public class UpdateUtil extends RetrieveUtil {
             }
         }, returnedInsertValue); //RETURN A FUTURE OBJECT
 
-        int returnedInt = calf.get();
+        int returnedInt = calf.get(); //BLOCKS UNTIL VALUE IS RETURNED
         return returnedInt;
     }
 }
