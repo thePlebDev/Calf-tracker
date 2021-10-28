@@ -18,13 +18,15 @@ public class Resource<T>{
         return new Resource<>(Status.SUCCESS,data,message);
     }
 
+    public static <T> Resource<T> loading(@Nullable T data){
+        return new Resource<>(Status.LOADING,data,null);
+    }
+    
     public static <T> Resource<T> error(@NonNull T data, @NonNull String message){
         return new Resource<>(Status.ERROR,data,message);
     }
 
-    public static <T> Resource<T> loading(@Nullable T data){
-        return new Resource<>(Status.LOADING,data,null);
-    }
+
 
     public enum Status {SUCCESS,ERROR,LOADING}
 
