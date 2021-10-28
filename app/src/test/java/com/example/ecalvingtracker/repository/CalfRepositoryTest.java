@@ -56,7 +56,7 @@ public class CalfRepositoryTest {
         Mockito.verify(calfDao).properInsert(Mockito.any(Calf.class));
 
 
-        Assert.assertEquals(Resource.success(1,"SUCCESS").getData(),returnedValue.getData());
+        Assert.assertEquals(Resource.success(1).getData(),returnedValue.getData());
 
     }
 

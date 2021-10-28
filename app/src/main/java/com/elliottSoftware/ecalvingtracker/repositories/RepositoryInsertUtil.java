@@ -24,7 +24,7 @@ public class RepositoryInsertUtil {
         //ALL THE EXCEPTIONS ARE HANDLED HERE
         try{
             long data = threadedInsert(calf); //BLOCKS HERE
-            Resource<Integer> resource = Resource.success(1,"Success!");
+            Resource<Integer> resource = Resource.success(1);
             return resource;
         } catch (Exception e) {
             Resource<Integer> resource = Resource.error(-1,"Error! Try again");
