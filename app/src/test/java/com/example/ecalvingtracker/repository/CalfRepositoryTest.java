@@ -3,6 +3,7 @@ package com.example.ecalvingtracker.repository;
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -41,11 +42,21 @@ public class CalfRepositoryTest {
      * **/
 
     @Test
-    void insertNote_returnRow() throws Exception{
+    public void insertNote_returnRow() throws Exception{
         //Arrange
         final Long returnedData = 1l; //WHAT SHOULD BE RETURNED
 
         Mockito.when(calfDao.properInsert(Mockito.any(Calf.class))).thenReturn(returnedData);
+
+
+        //Act
+        final Resource<Integer> returnedValue = calfRepository.properInsert(calfTest1);
+
+        //Assert
+        Mockito.verify(calfDao).properInsert(Mockito.any(Calf.class));
+
+
+        Assert.assertEquals(Resource.success(1,"SUCCESS").status,returnedValue.status);
 
     }
 

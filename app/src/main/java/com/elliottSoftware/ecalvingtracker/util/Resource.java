@@ -27,10 +27,6 @@ public class Resource<T>{
     }
 
     public enum Status {SUCCESS,ERROR,LOADING}
-
-//    @Override
-//    public boolean equals(Object obj){
-//
-//    }
+    
 
 }
