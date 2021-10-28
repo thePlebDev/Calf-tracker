@@ -1,7 +1,8 @@
-package com.example.ecalvingtracker;
+package com.example.ecalvingtracker.util;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
+import com.example.ecalvingtracker.util.InsertUtil;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

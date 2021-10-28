@@ -37,4 +37,7 @@ public interface CalfDao {
 
     @Query("SELECT * FROM calf_table WHERE tagNumber = :tagNumber")
     LiveData<List<Calf>> searchCalfTagNumber(String tagNumber);
+
+    @Insert
+    Long properInsert(Calf calf) throws Exception;
 }

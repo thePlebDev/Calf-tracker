@@ -1,4 +1,4 @@
-package com.example.ecalvingtracker;
+package com.example.ecalvingtracker.util;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
@@ -32,6 +32,21 @@ public class InsertUtil {
         int returnedValue = calf.get();
 
         return returnedValue; //This will block and get the runnable return value
+    }
+
+    public long properInsertCalf(Calf insertCalf) throws ExecutionException, InterruptedException {
+
+        Future<Long> calf = calfDatabase.databaseWriteExecutor.submit(new Callable<Long>() {
+            @Override
+            public Long call() throws Exception {
+                return calfDatabase.getCalfDao().properInsert(insertCalf);
+            }
+        }); //RETURN A FUTURE OBJECT
+
+        long returnedValue = calf.get();
+
+        return returnedValue;
+
     }
 
     //GETTERS

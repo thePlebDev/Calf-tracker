@@ -2,7 +2,9 @@ package com.elliottSoftware.ecalvingtracker.viewModels;
 
 import android.app.Application;
 
+import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
+import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 
 import java.util.List;
@@ -20,7 +22,8 @@ public class CalfViewModel extends AndroidViewModel {
     public CalfViewModel( Application application) {
         //APPLICATION COULD BE MY POINT OF FAILURE
         super(application);
-        mRepository = new CalfRepository(application);
+         CalfDao calfDao = CalfRoomDatabase.getDatabase(application).getCalfDao();
+        mRepository = new CalfRepository(calfDao);
         mAllCalves = mRepository.getAllCalves();
 
     }

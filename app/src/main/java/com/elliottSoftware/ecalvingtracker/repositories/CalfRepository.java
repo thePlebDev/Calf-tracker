@@ -5,6 +5,7 @@ import android.app.Application;
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -17,13 +18,17 @@ public class CalfRepository {
     private CalfDao mCalfDao;
     private LiveData<List<Calf>> mAllCalves;
 
+    private static final String INSERT_SUCCESS ="Insert Success";
+    private static final String INSERT_FAIL ="Insert Failed";
+    private static final String CALF_TAGNUMBER_NULL ="Please enter tag number";
+
     //NOTE THAT IN ORDER TO UNIT TEST CalfRepository, WE HAVE TO REMOVE APPLICATION DEPENDENCY
     //FOR NOW IT IS FINE
 
-    public CalfRepository(Application application){
+    public CalfRepository( CalfDao calfDao){
 
-        CalfRoomDatabase db = CalfRoomDatabase.getDatabase(application);
-        mCalfDao = db.getCalfDao(); //DEPENDENCY INJECTION, SHOULD BE IN CONSTRUCTOR
+
+        mCalfDao = calfDao; //DEPENDENCY INJECTION, SHOULD BE IN CONSTRUCTOR
         mAllCalves = mCalfDao.getAllCalves();
     }
 
@@ -77,5 +82,23 @@ public class CalfRepository {
         CalfRoomDatabase.databaseWriteExecutor.execute(()->{
             mCalfDao.deleteAll();
         });
+    }
+
+    /**
+     * THIS METHOD IS HOW ALL METHODS SHOULD BE CREATED
+     * **/
+    public Resource<Integer> properInsert(Calf calf){
+
+        RepositoryInsertUtil insertUtil = new RepositoryInsertUtil(mCalfDao);
+        return insertUtil.insertMethod(calf);
+
+    }
+
+    public void checkTagNumber(Calf calf) throws Exception{
+        if(calf.getTagNumber() == null){
+            throw new Exception(CALF_TAGNUMBER_NULL);
+        }
+
+
     }
 }

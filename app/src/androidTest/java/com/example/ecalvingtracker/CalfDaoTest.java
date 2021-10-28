@@ -4,6 +4,11 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
+import com.example.ecalvingtracker.util.DeleteUtil;
+import com.example.ecalvingtracker.util.InsertUtil;
+import com.example.ecalvingtracker.util.LiveDataUtil;
+import com.example.ecalvingtracker.util.RetrieveUtil;
+import com.example.ecalvingtracker.util.UpdateUtil;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,45 +102,30 @@ public class CalfDaoTest extends CalfDatabaseTest{
         //Retrieve
         LiveData<List<Calf>> calfLiveDataList = getCalfDao().getAllCalves(); //Automatically created Async code
 
+        LiveDataUtil liveDataUtil = new LiveDataUtil();
+        Calf returnedCalf = liveDataUtil.getValue(calfLiveDataList);// will block
 
-        final CountDownLatch latch = new CountDownLatch(1);
+        int returnedId = returnedCalf.getId();
 
-        final Calf[] data = new Calf[1];
+        //ASSERT
+        Assert.assertEquals(1,returnedId);
 
+    }
 
+    @Test(expected = InterruptedException.class)
+    public void simulatedInterruptedException () throws InterruptedException {
+        LiveDataUtil liveDataUtil = new LiveDataUtil();
+        liveDataUtil.throwInterruptedException();
 
-        Observer<List<Calf>> observer = new Observer<List<Calf>>() {
+    }
 
-            @Override
-            public void onChanged(List<Calf> listLiveData) {
-                latch.countDown(); // this releases all the threads
+    @Test
+    public void properInsertTest() throws ExecutionException, InterruptedException {
+        //Insert
+        InsertUtil insertUtil = new InsertUtil(calfDatabase);
+        long returnedValue = insertUtil.properInsertCalf(calfTest1); //blocks here
 
-                data[0] = listLiveData.get(0);
-
-            }
-        };
-
-
-
-       Handler handler = new Handler(Looper.getMainLooper()); //This is the main thread
-
-       handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            calfLiveDataList.observeForever(observer);
-                        }
-                    }
-       );
-
-
-        latch.await(2, TimeUnit.SECONDS);
-
-        Calf returnedCalf = data[0];
-
-        int id = returnedCalf.getId();
-
-
-        Assert.assertEquals(1,id);
+        Assert.assertEquals(1L,returnedValue);
 
     }
 
