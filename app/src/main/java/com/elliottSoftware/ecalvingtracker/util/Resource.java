@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Resource<T>{
-    @NonNull public final Status status;
-    @NonNull public final T data;
-    @NonNull public final String message;
+    @NonNull private final Status status;
+    @NonNull private final T data;
+    @NonNull private final String message;
 
     public Resource(@NonNull Status status, @Nullable T data, @Nullable String message){
         this.status = status;
@@ -27,6 +27,17 @@ public class Resource<T>{
     }
 
     public enum Status {SUCCESS,ERROR,LOADING}
-    
+
+
+    //GETTERS
+    public Status getStatus(){
+        return this.status;
+    }
+    public T getData(){
+        return this.data;
+    }
+    public String getMessage(){
+        return this.message;
+    }
 
 }
