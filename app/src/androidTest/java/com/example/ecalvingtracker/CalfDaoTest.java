@@ -6,6 +6,7 @@ import android.os.Looper;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentDelete;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
 import com.example.ecalvingtracker.util.DeleteUtil;
@@ -84,23 +85,37 @@ public class CalfDaoTest extends CalfDatabaseTest{
     }
 
     @Test
-    public void updateDeleteTest(){
+    public void updateTestFail(){
+        Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        Calf calfTest2Updated = new Calf(2,"test-2", "TEST 1", new Date(),"Bull","test-1");
+        //INSERT
+        ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(getCalfDao());
+        Resource<Long> resource = concurrentUpdate.insertCalf(calfTest2);
+        long returnedValue = resource.getData();
+
+        //UPDATE
+        Resource<Integer> updateResource = concurrentUpdate.updateCalf(calfTest2Updated);
+        int data = updateResource.getData();
+
+        //ASSERT
+        Assert.assertEquals(0,data);
 
     }
 
     @Test
     public void deleteTest() throws Exception {
+        //SET UP
+        int SUCESSDELETEVALUE = 1;
         //INSERT
-        DeleteUtil deleteUtil = new DeleteUtil(calfDatabase);
-        deleteUtil.insertCalf(calfTest1);
+        ConcurrentDelete concurrentDelete = new ConcurrentDelete(getCalfDao());
+        concurrentDelete.insertCalf(calfTest1);
 
         //DELETE
-        deleteUtil.deleteCalf(calfTest1);
+       Resource<Integer> deleteResource = concurrentDelete.deleteCalf(calfTest1);
+       int deleteValue = deleteResource.getData();
 
-        //RETRIEVE
-        Calf returnedCalf = deleteUtil.retrieveCalf(1);//THIS WILL BE null
-
-        Assert.assertEquals(null,returnedCalf);
+       //ASSERT
+        Assert.assertEquals(SUCESSDELETEVALUE,1);
     }
 
 
