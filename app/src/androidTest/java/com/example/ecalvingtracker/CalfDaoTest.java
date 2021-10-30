@@ -8,6 +8,7 @@ import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentDelete;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
 import com.example.ecalvingtracker.util.DeleteUtil;
 import com.example.ecalvingtracker.util.InsertUtil;
@@ -103,9 +104,9 @@ public class CalfDaoTest extends CalfDatabaseTest{
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    public void deleteTest(){
         //SET UP
-        int SUCESSDELETEVALUE = 1;
+        int SUCCESS_DELETE_VALUE = 1;
         //INSERT
         ConcurrentDelete concurrentDelete = new ConcurrentDelete(getCalfDao());
         concurrentDelete.insertCalf(calfTest1);
@@ -115,25 +116,39 @@ public class CalfDaoTest extends CalfDatabaseTest{
        int deleteValue = deleteResource.getData();
 
        //ASSERT
-        Assert.assertEquals(SUCESSDELETEVALUE,1);
+        Assert.assertEquals(SUCCESS_DELETE_VALUE,1);
     }
 
 
     @Test
-    public void getCalfTest() throws ExecutionException, InterruptedException {
+    public void getCalfTestSuccess(){
 
         //INSERT
-        RetrieveUtil retrieveUtil = new RetrieveUtil(calfDatabase);
-        retrieveUtil.insertCalf(calfTest1);
+        ConcurrentRetrieve concurrentRetrieve = new ConcurrentRetrieve(getCalfDao());
+        concurrentRetrieve.insertCalf(calfTest1);
 
         //RETRIEVE
-        int returnedCalfId = retrieveUtil.retrieveCalf(1).getId(); //THIS WILL BLOCK
+        Resource<Calf> returnedCalf = concurrentRetrieve.retrieveCalf(1); //THIS WILL BLOCK
+        int returnedCalfId = returnedCalf.getData().getId();
 
         //ASSERT
         Assert.assertEquals(1,returnedCalfId);
     }
+    /**
+     * TODO: the code fails of there is no calf with that id
+     * **/
     @Test
-    public void deleteAll(){
+    public void getCalfTestFailure(){
+        //INSERT
+        ConcurrentRetrieve concurrentRetrieve = new ConcurrentRetrieve(getCalfDao());
+        concurrentRetrieve.insertCalf(calfTest1);
+
+        //RETRIEVE
+        Resource<Calf> returnedCalf = concurrentRetrieve.retrieveCalf(2); //THIS WILL BLOCK
+        int returnedCalfId = returnedCalf.getData().getId();
+
+        //ASSERT
+        Assert.assertEquals(1,returnedCalfId);
 
     }
 

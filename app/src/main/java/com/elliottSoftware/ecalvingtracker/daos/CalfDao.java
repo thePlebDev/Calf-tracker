@@ -16,7 +16,7 @@ import androidx.room.Update;
 public interface CalfDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(Calf calf);
-    //WE CAN ADD THE UPDATE/DELETE LATE
+
     @Delete
     int delete(Calf calf);
 
