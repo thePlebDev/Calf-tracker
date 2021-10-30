@@ -23,7 +23,7 @@ public class RepositoryInsertUtil {
     public Resource<Integer>insertMethod(Calf calf){
         //ALL THE EXCEPTIONS ARE HANDLED HERE
         try{
-            long data = threadedInsert(calf); //BLOCKS HERE
+            long data = threadedInsert(calf);
             Resource<Integer> resource = Resource.success(1);
             return resource;
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class RepositoryInsertUtil {
             }
         });
 
-        long futureValue = calfFuture.get(); //BLOCKS BECAUSE OF THE GET METHOD
+        long futureValue = calfFuture.get();
         return futureValue;
     }
 

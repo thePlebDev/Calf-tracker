@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -42,22 +43,27 @@ public class CalfRepositoryTest {
      * **/
 
     @Test
-    public void insertNote_returnRow() throws Exception{
+    public void insertCalf() throws Exception{
         //Arrange
         final Long returnedData = 1l; //WHAT SHOULD BE RETURNED
 
         Mockito.when(calfDao.properInsert(Mockito.any(Calf.class))).thenReturn(returnedData);
 
-
         //Act
-        final Resource<Integer> returnedValue = calfRepository.properInsert(calfTest1);
+
 
         //Assert
         Mockito.verify(calfDao).properInsert(Mockito.any(Calf.class));
 
 
-        Assert.assertEquals(Resource.success(1).getData(),returnedValue.getData());
 
     }
+
+    @Test
+    public void updateCalf() throws Exception{
+        //Arrange
+
+    }
+
 
 }

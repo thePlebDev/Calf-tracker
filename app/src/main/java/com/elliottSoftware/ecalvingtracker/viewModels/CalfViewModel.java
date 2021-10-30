@@ -12,18 +12,20 @@ import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
-public class CalfViewModel extends AndroidViewModel {
+public class CalfViewModel extends ViewModel {
 
     private CalfRepository mRepository;
     private final LiveData<List<Calf>> mAllCalves;
 
 
-    public CalfViewModel( Application application) {
+    public CalfViewModel( CalfRepository repository) {
         //APPLICATION COULD BE MY POINT OF FAILURE
-        super(application);
-         CalfDao calfDao = CalfRoomDatabase.getDatabase(application).getCalfDao();
-        mRepository = new CalfRepository(calfDao);
+
+       //  CalfDao calfDao = CalfRoomDatabase.getDatabase(application).getCalfDao(); //ALSO INJECTED
+        //mRepository = new CalfRepository(calfDao); //this should be injected
+        mRepository = repository;
         mAllCalves = mRepository.getAllCalves();
 
     }
@@ -43,9 +45,7 @@ public class CalfViewModel extends AndroidViewModel {
     }
 
 
-    public void insert(Calf calf){
-        mRepository.insert(calf);
-    }
+
 
     public void updateCalf(Calf calf){mRepository.updateCalf(calf);}
 

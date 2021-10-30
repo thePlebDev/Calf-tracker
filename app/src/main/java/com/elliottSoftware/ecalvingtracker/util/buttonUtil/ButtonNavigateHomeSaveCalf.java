@@ -98,7 +98,7 @@ public class ButtonNavigateHomeSaveCalf extends ButtonNavigateHome{
         Calf calf = new Calf(tagNumber.getText().toString(),
                 description.getText().toString(),new Date(),
                 sex,cciaNumber.getText().toString());
-        mCalfViewModel.insert(calf);
+       // mCalfViewModel.insert(calf);
     }
 
     /**

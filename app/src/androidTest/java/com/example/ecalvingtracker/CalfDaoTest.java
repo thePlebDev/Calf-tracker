@@ -4,6 +4,10 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.elliottSoftware.ecalvingtracker.models.Calf;
+import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
 import com.example.ecalvingtracker.util.DeleteUtil;
 import com.example.ecalvingtracker.util.InsertUtil;
 import com.example.ecalvingtracker.util.LiveDataUtil;
@@ -22,41 +26,66 @@ import java.util.concurrent.TimeUnit;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+/**
+ * TODO: rewrite all tests with the new util classes
+ * **/
 public class CalfDaoTest extends CalfDatabaseTest{
     Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
 
 
     @Test
-    public void insertTest() throws Exception{
+    public void insertTestSuccess(){
+        long expectedReturnedValue = 1L;
         //INSERT
-        InsertUtil insertUtil = new InsertUtil(calfDatabase);
-        int returnedValue = insertUtil.insertCalf(calfTest1);
+        ConcurrentInsert concurrentInsert = new ConcurrentInsert(getCalfDao());
+        Resource<Long> resource = concurrentInsert.insertCalf(calfTest1);
+
+        long returnedValue = resource.getData();
 
         //ASSERT
-        Assert.assertEquals(1,returnedValue);
+        Assert.assertEquals(1L,returnedValue);
+
+    }
+
+    @Test
+    public void insertTestFail(){
+        //SETUP
+        int expectedReturnValue = -1;
+        Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        calfTest2.setTagNumber(null);
+        //INSERT
+        ConcurrentInsert concurrentInsert = new ConcurrentInsert(getCalfDao());
+
+        Resource<Long> resource = concurrentInsert.insertCalf(calfTest2);
+        long returnedValue = resource.getData();
+
+        Assert.assertEquals(-1,returnedValue);
+
+
 
     }
 
 
-        @Test
-    public void updateTest() throws Exception{
+    @Test
+    public void updateTest(){
+            Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+            Calf calfTest2Updated = new Calf(1,"test-2", "TEST 1", new Date(),"Bull","test-1");
             //INSERT
-            UpdateUtil updateUtil = new UpdateUtil(calfDatabase);
-
-            updateUtil.insertCalf(calfTest1);
+            ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(getCalfDao());
+            Resource<Long> resource = concurrentUpdate.insertCalf(calfTest2);
+            long returnedValue = resource.getData();
 
             //UPDATE
-            String UPDATED_TAG_NUMBER = "223F";
-            Calf updatedCalf = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
-            updatedCalf.setTagNumber(UPDATED_TAG_NUMBER);
-
-            updateUtil.updateCalf(updatedCalf); //THIS WILL BLOCK
-
-            //RETRIEVE
-            String returnedCalfTagNumber = updateUtil.retrieveCalf(1).getTagNumber();
+            Resource<Integer> updateResource = concurrentUpdate.updateCalf(calfTest2Updated);
+            int data = updateResource.getData();
 
             //ASSERT
-            Assert.assertEquals(UPDATED_TAG_NUMBER,returnedCalfTagNumber);
+            Assert.assertEquals(1,data);
+    }
+
+    @Test
+    public void updateDeleteTest(){
+
     }
 
     @Test
@@ -126,6 +155,25 @@ public class CalfDaoTest extends CalfDatabaseTest{
         long returnedValue = insertUtil.properInsertCalf(calfTest1); //blocks here
 
         Assert.assertEquals(1L,returnedValue);
+
+    }
+
+
+
+    @Test
+    public void properInsertTestResourceFail(){
+        RepositoryInsertUtil insertUtil = new RepositoryInsertUtil(getCalfDao());
+        String errorMessage = "Error! Try again";
+        Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        calfTest1.setTagNumber(null);
+
+        Resource<Integer> resource = insertUtil.insertMethod(calfTest1);
+        int resourceData =resource.getData();
+        String resourceMessage = resource.getMessage();
+
+
+        Assert.assertEquals(-1,resourceData);
+        Assert.assertEquals(errorMessage,resourceMessage);
 
     }
 

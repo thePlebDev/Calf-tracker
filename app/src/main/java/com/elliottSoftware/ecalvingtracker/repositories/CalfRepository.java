@@ -6,6 +6,7 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -63,11 +64,9 @@ public class CalfRepository {
 
 
     //WE MUST CALL THIS ON A NON-UI THREAD, OR ELSE WE WILL GET AN EXCEPTION
-    public void insert(Calf calf){
-        CalfRoomDatabase.databaseWriteExecutor.execute(()->{ //creates a Runnable
-            mCalfDao.insert(calf);
-        });
-    }
+
+
+
     public void updateCalf(Calf calf){
         CalfRoomDatabase.databaseWriteExecutor.execute(()-> mCalfDao.updateCalf(calf));
     }
@@ -98,7 +97,7 @@ public class CalfRepository {
         if(calf.getTagNumber() == null){
             throw new Exception(CALF_TAGNUMBER_NULL);
         }
-
-
     }
+
+
 }

@@ -45,7 +45,7 @@ public class NewCalfInterfaceImplementation  implements SaveCalfInterface {
         }
         Calf calf = new Calf(tagNumber,description,new Date(),sex,cciaNumber);
         //This should be its own
-        mCalfViewModel.insert(calf);
+        //mCalfViewModel.insert(calf);
         return true;
     }
 

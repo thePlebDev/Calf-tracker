@@ -12,6 +12,7 @@ public class Resource<T>{
         this.message = message;
     }
 
+
     public static <T> Resource<T> success( T data){
         return new Resource<>(data,null);
     }
