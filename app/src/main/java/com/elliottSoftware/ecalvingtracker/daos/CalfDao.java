@@ -25,7 +25,7 @@ public interface CalfDao {
 
 
     @Query("DELETE FROM calf_table")
-    void deleteAll();
+    int deleteAll();
 
     @Query("SELECT * FROM calf_table ORDER BY id ASC")
     LiveData<List<Calf>> getAllCalves();

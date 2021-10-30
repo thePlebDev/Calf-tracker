@@ -39,24 +39,24 @@ public class CalfQueries {
         //THIS IS THE ONLY THING THAT IS REALLY UNIQUE
         if(mCalfViewModel != null){
 
-            try {
-
-                this.calf = mCalfViewModel.getCalf(calfId); //getting the calf
-                this.tagNumber = this.calf.getTagNumber();
-                this.details = this.calf.getDetails();
-                this.cciaNumber = this.calf.getCciaNumber();
-                this.sex = this.calf.getSex();
-                this.date = this.calf.getDate();
-
-
-
-
-            } catch (ExecutionException e) {
-                //HOW SHOULD WE HANDLE EXCEPTIONS IN ANDROID
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//
+//                this.calf = mCalfViewModel.getCalf(calfId); //getting the calf
+//                this.tagNumber = this.calf.getTagNumber();
+//                this.details = this.calf.getDetails();
+//                this.cciaNumber = this.calf.getCciaNumber();
+//                this.sex = this.calf.getSex();
+//                this.date = this.calf.getDate();
+//
+//
+//
+//
+//            } catch (ExecutionException e) {
+//                //HOW SHOULD WE HANDLE EXCEPTIONS IN ANDROID
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
 
         }

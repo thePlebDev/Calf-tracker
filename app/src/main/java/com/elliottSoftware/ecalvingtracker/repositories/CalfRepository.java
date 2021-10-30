@@ -6,7 +6,10 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentDelete;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -27,9 +30,7 @@ public class CalfRepository {
     //FOR NOW IT IS FINE
 
     public CalfRepository( CalfDao calfDao){
-
-
-        mCalfDao = calfDao; //DEPENDENCY INJECTION, SHOULD BE IN CONSTRUCTOR
+        mCalfDao = calfDao;
         mAllCalves = mCalfDao.getAllCalves();
     }
 
@@ -39,54 +40,37 @@ public class CalfRepository {
     }
 
 
-    public Calf getCalf(int calfId) throws ExecutionException, InterruptedException {
-        //THIS IS RETURNING A FUTURE
-        //we are going to add a new callable to the submit
-        Future<Calf> calf =  CalfRoomDatabase
-                .databaseWriteExecutor.submit(new Callable<Calf>() {
+    public Resource<Calf> getCalf(int calfId) {
+        ConcurrentRetrieve concurrentRetrieve = new ConcurrentRetrieve(mCalfDao);
+        Resource<Calf>  resource = concurrentRetrieve.retrieveCalf(calfId);
 
-            @Override
-            public Calf call()  {
-                return mCalfDao.getCalf(calfId);
-            }
-        });
+        return resource;
 
-        //GET SHOULD WAIT UNTIL WE GET WHAT WE WANT
-        Calf gettingCalf = calf.get();
-        String names = gettingCalf.getTagNumber();
-        return gettingCalf;
-    }
-/**
- * method used to get calves from the database that have the matching tagNumber
- * TODO: ACTUA
- * **/
-
-
-
-    //WE MUST CALL THIS ON A NON-UI THREAD, OR ELSE WE WILL GET AN EXCEPTION
-
-
-
-    public void updateCalf(Calf calf){
-        CalfRoomDatabase.databaseWriteExecutor.execute(()-> mCalfDao.updateCalf(calf));
     }
 
-    public void delete(Calf calf){
-        CalfRoomDatabase.databaseWriteExecutor.execute(()->{
-            mCalfDao.delete(calf);
-        });
+
+    public Resource<Integer> updateCalf(Calf calf){
+        ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(mCalfDao);
+        Resource<Integer> resource = concurrentUpdate.updateCalf(calf);
+        return resource;
     }
 
-    public void deleteAll(){
-        CalfRoomDatabase.databaseWriteExecutor.execute(()->{
-            mCalfDao.deleteAll();
-        });
+    public Resource<Integer> delete(Calf calf){
+        ConcurrentDelete concurrentDelete = new ConcurrentDelete(mCalfDao);
+        Resource<Integer> resource = concurrentDelete.deleteCalf(calf);
+        return resource;
+    }
+
+    public Resource<Integer> deleteAll(){
+        ConcurrentDelete concurrentDelete = new ConcurrentDelete(mCalfDao);
+        Resource<Integer> resource = concurrentDelete.deleteAllCalves();
+        return resource;
     }
 
     /**
      * THIS METHOD IS HOW ALL METHODS SHOULD BE CREATED
      * **/
-    public Resource<Integer> properInsert(Calf calf){
+    public Resource<Long> properInsert(Calf calf){
 
         RepositoryInsertUtil insertUtil = new RepositoryInsertUtil(mCalfDao);
         return insertUtil.insertMethod(calf);

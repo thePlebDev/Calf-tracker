@@ -20,11 +20,13 @@ import java.util.Date;
 
 public class CalfRepositoryTest {
     Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+
+
     //SYSTEM UNDER TEST
     private CalfRepository calfRepository;
 
 
-
+    //the mocked dependencies
     private CalfDao calfDao;
 
 
@@ -32,7 +34,6 @@ public class CalfRepositoryTest {
     public void initEach(){
         calfDao = Mockito.mock(CalfDao.class);
         calfRepository = new CalfRepository(calfDao);
-
     }
 
     /**
@@ -45,25 +46,78 @@ public class CalfRepositoryTest {
     @Test
     public void insertCalf() throws Exception{
         //Arrange
-        final Long returnedData = 1l; //WHAT SHOULD BE RETURNED
-
+        final Long returnedData = 1l;
         Mockito.when(calfDao.properInsert(Mockito.any(Calf.class))).thenReturn(returnedData);
 
         //Act
-
+        Resource<Long> data = calfRepository.properInsert(calfTest1);
+        long successfulReturn = data.getData();
 
         //Assert
-        Mockito.verify(calfDao).properInsert(Mockito.any(Calf.class));
+        Assert.assertEquals(1l,successfulReturn);
 
+    }
+
+    @Test
+    public void updateCalf(){
+        //Arrange
+        final int returnedData = 1;
+        Mockito.when(calfDao.updateCalf(Mockito.any(Calf.class))).thenReturn(returnedData);
+
+        //Act
+        Resource<Integer> data = calfRepository.updateCalf(calfTest1);
+        int successfulReturned = data.getData();
+
+        //Assert
+        Assert.assertEquals(1,successfulReturned);
+
+    }
+
+    @Test
+    public void deleteCalf(){
+        //Arrange
+        final int returnedData = 1;
+        Mockito.when(calfDao.delete(Mockito.any(Calf.class))).thenReturn(returnedData);
+
+        //Act
+        Resource<Integer> data = calfRepository.delete(calfTest1);
+        int successfulReturnedData = data.getData();
+
+        Assert.assertEquals(returnedData,successfulReturnedData);
+
+    }
+
+    @Test
+    public void deleteAllCalves(){
+        //Arrange
+        final int returnedData = 1;
+        Mockito.when(calfDao.deleteAll()).thenReturn(returnedData);
+
+        //Act
+        Resource<Integer> data = calfRepository.deleteAll();
+        int successfulReturnedData = data.getData();
+
+        Assert.assertEquals(1,successfulReturnedData);
 
 
     }
 
     @Test
-    public void updateCalf() throws Exception{
+    public void retrieveCalf(){
         //Arrange
+        final int CALF_ID = 1;
+        final Calf returnedCalf = new Calf(CALF_ID,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        Mockito.when(calfDao.getCalf(1)).thenReturn(returnedCalf);
 
+        //Act
+        Resource<Calf> data = calfRepository.getCalf(1);
+        int returnedId = data.getData().getId();
+
+        //Assert
+        Assert.assertEquals(CALF_ID,returnedId);
     }
+
+
 
 
 }

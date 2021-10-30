@@ -118,6 +118,24 @@ public class CalfDaoTest extends CalfDatabaseTest{
        //ASSERT
         Assert.assertEquals(SUCCESS_DELETE_VALUE,1);
     }
+    @Test
+    public void deleteAllTest(){
+        //Arrange
+        int SUCCESS_DELETE_VALUE = 2;
+        //INSERT
+        Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        Calf calfTest2 = new Calf(2,"test-1", "TEST 1", new Date(),"Bull","test-1");
+        ConcurrentDelete concurrentDelete = new ConcurrentDelete(getCalfDao());
+        concurrentDelete.insertCalf(calfTest1);
+        concurrentDelete.insertCalf(calfTest2);
+        //DELETE
+        Resource<Integer> resource = concurrentDelete.deleteAllCalves();
+        int resourceData = resource.getData();
+
+        //Assert
+        Assert.assertEquals(SUCCESS_DELETE_VALUE,resourceData);
+
+    }
 
 
     @Test
@@ -197,13 +215,6 @@ public class CalfDaoTest extends CalfDatabaseTest{
         Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
         calfTest1.setTagNumber(null);
 
-        Resource<Integer> resource = insertUtil.insertMethod(calfTest1);
-        int resourceData =resource.getData();
-        String resourceMessage = resource.getMessage();
-
-
-        Assert.assertEquals(-1,resourceData);
-        Assert.assertEquals(errorMessage,resourceMessage);
 
     }
 

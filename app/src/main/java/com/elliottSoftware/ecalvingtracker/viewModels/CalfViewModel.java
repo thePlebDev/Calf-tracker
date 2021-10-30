@@ -37,12 +37,12 @@ public class CalfViewModel extends ViewModel {
    /**
     * GETS THE CALF WITH THE MATCHING ID
     * **/
-    public Calf getCalf(int calfId) throws ExecutionException, InterruptedException {
-
-       Calf calf = mRepository.getCalf(calfId);
-        return calf;
-
-    }
+//    public Calf getCalf(int calfId) throws ExecutionException, InterruptedException {
+//
+//       Calf calf = mRepository.getCalf(calfId);
+//        return calf;
+//
+//    }
 
 
 

@@ -20,14 +20,14 @@ public class RepositoryInsertUtil {
 
     }
 
-    public Resource<Integer>insertMethod(Calf calf){
+    public Resource<Long>insertMethod(Calf calf){
         //ALL THE EXCEPTIONS ARE HANDLED HERE
         try{
             long data = threadedInsert(calf);
-            Resource<Integer> resource = Resource.success(1);
+            Resource<Long> resource = Resource.success(data);
             return resource;
         } catch (Exception e) {
-            Resource<Integer> resource = Resource.error(-1,"Error! Try again");
+            Resource<Long> resource = Resource.error(null,"Error! Try again");
             return resource;
         }
     }
