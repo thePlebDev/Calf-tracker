@@ -1,9 +1,10 @@
-package com.elliottSoftware.ecalvingtracker.util.concurrent;
+package com.elliottSoftware.ecalvingtracker.util.concurrent.delete;
 
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -12,7 +13,7 @@ import java.util.concurrent.Future;
  * THIS INHERITANCE STRUCTURE MAKES NO REAL SENSE OUTSIDE OF TESTING.
  * BREAK IT UP AND PUT EVERYTHING INTO ITS OWN CLASS.
  * **/
-public class ConcurrentDelete extends ConcurrentUpdate{
+public class ConcurrentDelete extends ConcurrentUpdate {
     public ConcurrentDelete(CalfDao calfDao) {
         super(calfDao);
     }
@@ -69,7 +70,7 @@ public class ConcurrentDelete extends ConcurrentUpdate{
     public int threadedDeleteAllCalves() throws ExecutionException, InterruptedException {
         Future<Integer> integerFuture = CalfRoomDatabase.databaseWriteExecutor.submit(new Callable<Integer>() {
             @Override
-            public Integer call() throws Exception {
+            public Integer call(){
                 return getCalfDao().deleteAll();
             }
         });

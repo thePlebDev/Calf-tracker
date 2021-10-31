@@ -1,32 +1,23 @@
 package com.example.ecalvingtracker;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentDelete;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDelete;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
-import com.example.ecalvingtracker.util.DeleteUtil;
 import com.example.ecalvingtracker.util.InsertUtil;
 import com.example.ecalvingtracker.util.LiveDataUtil;
-import com.example.ecalvingtracker.util.RetrieveUtil;
-import com.example.ecalvingtracker.util.UpdateUtil;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 /**
  * TODO: rewrite all tests with the new util classes
