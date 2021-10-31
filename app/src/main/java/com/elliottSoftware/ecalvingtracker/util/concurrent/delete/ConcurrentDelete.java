@@ -10,8 +10,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 /**
- * THIS INHERITANCE STRUCTURE MAKES NO REAL SENSE OUTSIDE OF TESTING.
- * BREAK IT UP AND PUT EVERYTHING INTO ITS OWN CLASS.
+ * TODO: NOTICE ALL THE DUPLICATE BETWEEN deleteCalf and deleteAllCalves
  * **/
 public class ConcurrentDelete extends ConcurrentUpdate {
     public ConcurrentDelete(CalfDao calfDao) {
@@ -19,7 +18,7 @@ public class ConcurrentDelete extends ConcurrentUpdate {
     }
 
 
-
+    //SHOULD BE EXTRACTED AND PUT INTO A BASE CLASS FOR CODE REUSE
     public Resource<Integer> deleteCalf(Calf calf){
 
         try{
@@ -37,10 +36,8 @@ public class ConcurrentDelete extends ConcurrentUpdate {
 
     }
 
-
+    // SHOULD BE AN ABSTRACT METHOD INSIDE THE BASE CLASS
     public int threadedDelete(Calf calf) throws ExecutionException, InterruptedException {
-        // ABSTRACT THIS AWAY TO A BASE CLASS AND THEN INDIVIDUAL CLASS IMPLEMENT THE
-        // ABSTRACT METHOD
         Future<Integer> integerFuture = CalfRoomDatabase.databaseWriteExecutor.submit(new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
@@ -50,7 +47,6 @@ public class ConcurrentDelete extends ConcurrentUpdate {
          int returnedFuture = integerFuture.get();
          return returnedFuture;
     }
-    //THIS BELOW THIS SHOULD BE ITS OWN CLASS THAT INHERITS FROM A DELETE BASE CLASS
 
     public Resource<Integer> deleteAllCalves(){
         try {
