@@ -66,7 +66,7 @@ public class ConcurrentDelete extends ConcurrentUpdate {
     public int threadedDeleteAllCalves() throws ExecutionException, InterruptedException {
         Future<Integer> integerFuture = CalfRoomDatabase.databaseWriteExecutor.submit(new Callable<Integer>() {
             @Override
-            public Integer call(){
+            public Integer call() throws Exception {
                 return getCalfDao().deleteAll();
             }
         });

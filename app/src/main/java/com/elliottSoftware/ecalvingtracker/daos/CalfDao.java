@@ -15,7 +15,7 @@ import androidx.room.Update;
 @Dao
 public interface CalfDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(Calf calf);
+    long insert(Calf calf) throws Exception;
 
     @Delete
     int delete(Calf calf);
@@ -25,7 +25,7 @@ public interface CalfDao {
 
 
     @Query("DELETE FROM calf_table")
-    int deleteAll();
+    int deleteAll() throws Exception;
 
     @Query("SELECT * FROM calf_table ORDER BY id ASC")
     LiveData<List<Calf>> getAllCalves();

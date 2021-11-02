@@ -55,7 +55,11 @@ public abstract class CalfRoomDatabase  extends RoomDatabase {
 
             databaseWriteExecutor.execute(()->{
                 CalfDao dao = INSTANCE.getCalfDao();
-                dao.deleteAll();
+                try {
+                    dao.deleteAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
         }
 
