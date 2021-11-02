@@ -4,9 +4,14 @@ import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDelete;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentInsert;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteAll;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteSingleItem;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsert;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertSingleItem;
 import com.example.ecalvingtracker.util.InsertUtil;
 import com.example.ecalvingtracker.util.LiveDataUtil;
 
@@ -30,29 +35,29 @@ public class CalfDaoTest extends CalfDatabaseTest{
     public void insertTestSuccess(){
         long expectedReturnedValue = 1L;
         //INSERT
-        ConcurrentInsert concurrentInsert = new ConcurrentInsert(getCalfDao());
-        Resource<Long> resource = concurrentInsert.insertCalf(calfTest1);
+        ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(getCalfDao());
+        Resource<Long> returnedResource = concurrentInsertSingleItem.insertCalf(calfTest1);
 
-        long returnedValue = resource.getData();
-
-        //ASSERT
-        Assert.assertEquals(1L,returnedValue);
+        long data = returnedResource.getData();
+        Assert.assertEquals(1,data);
 
     }
 
     @Test
     public void insertTestFail(){
+
         //SETUP
-        int expectedReturnValue = -1;
+        long expectedReturnValue = -1L;
         Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
         calfTest2.setTagNumber(null);
+
         //INSERT
-        ConcurrentInsert concurrentInsert = new ConcurrentInsert(getCalfDao());
+        ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(getCalfDao());
+        Resource<Long> returnedResource = concurrentInsertSingleItem.insertCalf(calfTest2);
 
-        Resource<Long> resource = concurrentInsert.insertCalf(calfTest2);
-        long returnedValue = resource.getData();
-
-        Assert.assertEquals(-1,returnedValue);
+        //ASSERT
+        long data = returnedResource.getData();
+        Assert.assertEquals(expectedReturnValue,data);
 
 
 
@@ -97,18 +102,21 @@ public class CalfDaoTest extends CalfDatabaseTest{
     @Test
     public void deleteTest(){
         //SET UP
-        int SUCCESS_DELETE_VALUE = 1;
+        int  SUCCESSFUL_DELETE = 1;
+
         //INSERT
-        ConcurrentDelete concurrentDelete = new ConcurrentDelete(getCalfDao());
-        concurrentDelete.insertCalf(calfTest1);
+        ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(getCalfDao());
+        Resource<Long> returnedResource = concurrentInsertSingleItem.insertCalf(calfTest1);
 
         //DELETE
-       Resource<Integer> deleteResource = concurrentDelete.deleteCalf(calfTest1);
-       int deleteValue = deleteResource.getData();
+        ConcurrentDeleteBase concurrentDeleteBaseSingleItem = new ConcurrentDeleteSingleItem(getCalfDao());
+        Resource<Integer> deleteResource = concurrentDeleteBaseSingleItem.deleteCalf(calfTest1);
 
        //ASSERT
-        Assert.assertEquals(SUCCESS_DELETE_VALUE,1);
+        int data = deleteResource.getData();
+        Assert.assertEquals(SUCCESSFUL_DELETE,data);
     }
+
     @Test
     public void deleteAllTest(){
         //Arrange
@@ -116,11 +124,13 @@ public class CalfDaoTest extends CalfDatabaseTest{
         //INSERT
         Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
         Calf calfTest2 = new Calf(2,"test-1", "TEST 1", new Date(),"Bull","test-1");
-        ConcurrentDelete concurrentDelete = new ConcurrentDelete(getCalfDao());
-        concurrentDelete.insertCalf(calfTest1);
-        concurrentDelete.insertCalf(calfTest2);
+        ConcurrentInsertBase concurrentInsert = new ConcurrentInsertSingleItem(getCalfDao());
+        concurrentInsert.insertCalf(calfTest1);
+        concurrentInsert.insertCalf(calfTest2);
         //DELETE
-        Resource<Integer> resource = concurrentDelete.deleteAllCalves();
+        ConcurrentDeleteBase concurrentDeleteAll = new ConcurrentDeleteAll(getCalfDao());
+        Resource<Integer> resource = concurrentDeleteAll.deleteCalf(null);
+
         int resourceData = resource.getData();
 
         //Assert

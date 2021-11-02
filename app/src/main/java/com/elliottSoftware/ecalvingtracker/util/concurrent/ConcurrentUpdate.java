@@ -4,12 +4,13 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsert;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ConcurrentUpdate extends ConcurrentInsert{
+public class ConcurrentUpdate extends ConcurrentInsert {
     public ConcurrentUpdate(CalfDao calfDao) {
         super(calfDao);
     }

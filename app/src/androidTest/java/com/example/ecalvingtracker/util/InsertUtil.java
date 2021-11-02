@@ -25,7 +25,11 @@ public class InsertUtil {
         Future<Integer> calf = calfDatabase.databaseWriteExecutor.submit(new Runnable() { // RUNNABLE WITH RETURN VALUE UPON SUCCESS
             @Override
             public void run() {
-                calfDatabase.getCalfDao().insert(insertCalf);
+                try {
+                    calfDatabase.getCalfDao().insert(insertCalf);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, returnedInsertValue); //RETURN A FUTURE OBJECT
 
