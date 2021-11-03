@@ -18,7 +18,11 @@ public class UpdateUtil extends RetrieveUtil {
         Future<Integer> calf = getCalfDatabase().databaseWriteExecutor.submit(new Runnable() { // RUNNABLE WITH RETURN VALUE UPON SUCCESS
             @Override
             public void run() {
-                getCalfDatabase().getCalfDao().updateCalf(updatedCalf);
+                try {
+                    getCalfDatabase().getCalfDao().updateCalf(updatedCalf);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, returnedInsertValue); //RETURN A FUTURE OBJECT
 

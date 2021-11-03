@@ -21,7 +21,7 @@ public interface CalfDao {
     int delete(Calf calf);
 
     @Update
-    int updateCalf(Calf calf);
+    int updateCalf(Calf calf) throws Exception;
 
 
     @Query("DELETE FROM calf_table")
