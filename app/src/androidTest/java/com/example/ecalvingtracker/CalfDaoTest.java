@@ -3,15 +3,17 @@ package com.example.ecalvingtracker;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDelete;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteAll;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteBase;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteSingleItem;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsert;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieve;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieveBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieveSingleItem;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdate;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertBase;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertSingleItem;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateSingleItem;
 import com.example.ecalvingtracker.util.InsertUtil;
 import com.example.ecalvingtracker.util.LiveDataUtil;
 
@@ -66,38 +68,22 @@ public class CalfDaoTest extends CalfDatabaseTest{
 
     @Test
     public void updateTest(){
+            //SETUP
+            String UPDATE_TEXT = "TEST_2";
+            int SUCCESSFUL_UPDATE = 1;
             Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
-            Calf calfTest2Updated = new Calf(1,"test-2", "TEST 1", new Date(),"Bull","test-1");
+            Calf calfTest2Updated = new Calf(1,UPDATE_TEXT, "TEST 1", new Date(),"Bull","test-1");
             //INSERT
-            ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(getCalfDao());
-            Resource<Long> resource = concurrentUpdate.insertCalf(calfTest2);
-            long returnedValue = resource.getData();
-
+            ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(getCalfDao());
+            concurrentInsertSingleItem.insertCalf(calfTest1);
             //UPDATE
-            Resource<Integer> updateResource = concurrentUpdate.updateCalf(calfTest2Updated);
-            int data = updateResource.getData();
-
+            ConcurrentUpdateBase concurrentUpdateSingleItem = new ConcurrentUpdateSingleItem(getCalfDao());
+            Resource<Integer> resource = concurrentUpdateSingleItem.updateCalf(calfTest2Updated);
+            int data = resource.getData();
             //ASSERT
-            Assert.assertEquals(1,data);
+            Assert.assertEquals(SUCCESSFUL_UPDATE,data);
     }
 
-    @Test
-    public void updateTestFail(){
-        Calf calfTest2 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
-        Calf calfTest2Updated = new Calf(2,"test-2", "TEST 1", new Date(),"Bull","test-1");
-        //INSERT
-        ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(getCalfDao());
-        Resource<Long> resource = concurrentUpdate.insertCalf(calfTest2);
-        long returnedValue = resource.getData();
-
-        //UPDATE
-        Resource<Integer> updateResource = concurrentUpdate.updateCalf(calfTest2Updated);
-        int data = updateResource.getData();
-
-        //ASSERT
-        Assert.assertEquals(0,data);
-
-    }
 
     @Test
     public void deleteTest(){
@@ -141,17 +127,19 @@ public class CalfDaoTest extends CalfDatabaseTest{
 
     @Test
     public void getCalfTestSuccess(){
+        //SETUP
+        int SUCCESSFUL_RETURNED_ID =1;
 
         //INSERT
-        ConcurrentRetrieve concurrentRetrieve = new ConcurrentRetrieve(getCalfDao());
-        concurrentRetrieve.insertCalf(calfTest1);
+        ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(getCalfDao());
+        concurrentInsertSingleItem.insertCalf(calfTest1);
 
         //RETRIEVE
-        Resource<Calf> returnedCalf = concurrentRetrieve.retrieveCalf(1); //THIS WILL BLOCK
-        int returnedCalfId = returnedCalf.getData().getId();
-
+        ConcurrentRetrieveBase concurrentRetrieveSingleCalf = new ConcurrentRetrieveSingleItem(getCalfDao());
+        Resource<Calf> resource = concurrentRetrieveSingleCalf.retrieveCalf(1);
+        int returnedCalfId = resource.getData().getId();
         //ASSERT
-        Assert.assertEquals(1,returnedCalfId);
+        Assert.assertEquals(SUCCESSFUL_RETURNED_ID,returnedCalfId);
     }
     /**
      * TODO: the code fails of there is no calf with that id

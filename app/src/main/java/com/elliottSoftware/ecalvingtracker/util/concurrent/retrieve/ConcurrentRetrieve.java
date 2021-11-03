@@ -1,4 +1,4 @@
-package com.elliottSoftware.ecalvingtracker.util.concurrent;
+package com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve;
 
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;

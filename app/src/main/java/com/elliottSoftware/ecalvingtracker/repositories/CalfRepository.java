@@ -4,8 +4,8 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDelete;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentRetrieve;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieve;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdate;
 
 import java.util.List;
 

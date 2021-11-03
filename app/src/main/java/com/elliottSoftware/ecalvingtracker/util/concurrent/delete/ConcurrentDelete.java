@@ -4,7 +4,7 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
-import com.elliottSoftware.ecalvingtracker.util.concurrent.ConcurrentUpdate;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdate;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
