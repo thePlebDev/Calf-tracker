@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
+import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
 import com.example.ecalvingtracker.R;
@@ -82,7 +84,9 @@ public class NewCalfFragment extends Fragment {
         fabRight = view.findViewById(R.id.new_calf_fab_right);
         fabLeft = view.findViewById(R.id.new_calf_fab_left);
         //THIS MIGHT BE A DEPENDENCY INJECTION
-        mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
+        CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
+        mCalfViewModel = new CalfViewModel(repository);
+
         this.view = view;
 
 

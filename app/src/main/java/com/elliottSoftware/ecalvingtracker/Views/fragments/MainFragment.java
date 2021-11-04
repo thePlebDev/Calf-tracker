@@ -85,7 +85,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         snackBarCreation = new SnackBarBase();
         CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
         mCalfViewModel = new CalfViewModel(repository);
-                //mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
+                
         mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
             //update the cached copy of the words in the adapter
             //setting the data inside of our adapter
@@ -116,7 +116,9 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
 
 
-        //SETTING THE BUTTON
+        /**
+         * Used to handle the the FAB click logic and navigate to the next fragment
+         * **/
         FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.fab);
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
