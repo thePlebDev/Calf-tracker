@@ -4,8 +4,15 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDelete;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteAll;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDeleteSingleItem;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertSingleItem;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieve;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdate;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateSingleItem;
 
 import java.util.List;
 
@@ -43,30 +50,32 @@ public class CalfRepository {
 
 
     public Resource<Integer> updateCalf(Calf calf){
-        ConcurrentUpdate concurrentUpdate = new ConcurrentUpdate(mCalfDao);
-        Resource<Integer> resource = concurrentUpdate.updateCalf(calf);
+        ConcurrentUpdateBase concurrentUpdateSingleItem = new ConcurrentUpdateSingleItem(mCalfDao);
+        Resource<Integer> resource = concurrentUpdateSingleItem.updateCalf(calf);
         return resource;
     }
 
     public Resource<Integer> delete(Calf calf){
-        ConcurrentDelete concurrentDelete = new ConcurrentDelete(mCalfDao);
-        Resource<Integer> resource = concurrentDelete.deleteCalf(calf);
+        ConcurrentDeleteBase concurrentDeleteSingleItem = new ConcurrentDeleteSingleItem(mCalfDao);
+        Resource<Integer> resource = concurrentDeleteSingleItem.deleteCalf(calf);
         return resource;
     }
 
     public Resource<Integer> deleteAll(){
-        ConcurrentDelete concurrentDelete = new ConcurrentDelete(mCalfDao);
-        Resource<Integer> resource = concurrentDelete.deleteAllCalves();
+        ConcurrentDeleteBase concurrentDeleteAll = new ConcurrentDeleteAll(mCalfDao);
+        Resource<Integer> resource = concurrentDeleteAll.deleteCalf(null);
         return resource;
     }
 
     /**
      * THIS METHOD IS HOW ALL METHODS SHOULD BE CREATED
      * **/
-    public Resource<Long> properInsert(Calf calf){
+    public Resource<Long> insertCalf(Calf calf){
 
-        RepositoryInsertUtil insertUtil = new RepositoryInsertUtil(mCalfDao);
-        return insertUtil.insertMethod(calf);
+        ConcurrentInsertBase concurrentInsertSingleItem = new ConcurrentInsertSingleItem(mCalfDao);
+        Resource<Long> resource = concurrentInsertSingleItem.insertCalf(calf);
+        return resource;
+
 
     }
 
