@@ -48,7 +48,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
     }
 
     /**
-     * TODO: DELETE
+     * TODO: DELETE OR MOVE TO SUPER CLASS. I DON'T WANT MENU METHODS IN THIS CLASS
      * **/
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
@@ -56,7 +56,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
     }
 
     /**
-     * TODO: DELETE
+     * TODO: DELETE OR MOVE TO SUPER CLASS. I DON'T WANT MENU METHODS IN THIS CLASS
      * **/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -85,7 +85,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         snackBarCreation = new SnackBarBase();
         CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
         mCalfViewModel = new CalfViewModel(repository);
-                
+
         mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
             //update the cached copy of the words in the adapter
             //setting the data inside of our adapter
@@ -98,21 +98,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
         //THE DELETE SWIPE SHOULD GO HERE
         //HAS TO BE BELOW THE RECYCLERVIEW SETTING
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT ) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull  RecyclerView.ViewHolder viewHolder, @NonNull  RecyclerView.ViewHolder target) {
-                //THIS IS FOR DRAG AND DROP FUNCTIONALITY WHICH WE WILL NOT BE USING
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            mCalfViewModel.delete(adapter.getCalfAt(viewHolder.getAdapterPosition()));
-                snackBarCreation.createSnackbarCalfDeleted(Globalview);
-
-            }
-        }).attachToRecyclerView(recyclerView);
+        touchHelper(adapter);
 
 
 
@@ -144,4 +130,26 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         NavHostFragment.findNavController(this).navigate(action);
 
     }
+
+    /**
+     * Used to add the swipe to delete functionality
+     * **/
+    public void touchHelper(CalfListAdapter adapter){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT ) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull  RecyclerView.ViewHolder viewHolder, @NonNull  RecyclerView.ViewHolder target) {
+                //THIS IS FOR DRAG AND DROP FUNCTIONALITY WHICH WE WILL NOT BE USING
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                mCalfViewModel.delete(adapter.getCalfAt(viewHolder.getAdapterPosition()));
+                snackBarCreation.createSnackbarCalfDeleted(Globalview);
+
+            }
+        }).attachToRecyclerView(recyclerView);
+    }
+
 }

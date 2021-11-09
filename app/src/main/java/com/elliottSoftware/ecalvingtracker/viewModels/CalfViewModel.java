@@ -48,6 +48,9 @@ public class CalfViewModel extends ViewModel {
 
 
     public void updateCalf(Calf calf){mRepository.updateCalf(calf);}
+    public void insertCalf(Calf calf){
+        mRepository.insertCalf(calf);
+    }
 
 
     public void deleteAll(){

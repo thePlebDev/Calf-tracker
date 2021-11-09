@@ -1,5 +1,8 @@
 package com.example.ecalvingtracker;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.repositories.RepositoryInsertUtil;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
@@ -22,9 +25,12 @@ import org.junit.Test;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 /**
  * TODO: rewrite all tests with the new util classes
@@ -204,6 +210,38 @@ public class CalfDaoTest extends CalfDatabaseTest{
         Calf calfTest1 = new Calf(1,"test-1", "TEST 1", new Date(),"Bull","test-1");
         calfTest1.setTagNumber(null);
 
+
+    }
+
+    @Test
+    public void getCalvesWithTagNumber() throws Exception {
+        //INSERT
+        String TAG_NUMBER = "22f3";
+        Calf calfTest2 = new Calf(1,TAG_NUMBER, "TEST 1", new Date(),"Bull","test-1");
+
+        ConcurrentInsertBase concurrentInsert = new ConcurrentInsertSingleItem(getCalfDao());
+        concurrentInsert.insertCalf(calfTest2);
+
+        //RETRIEVE
+        LiveData<List<Calf>> calfLiveDataList = getCalfDao().searchCalfTagNumber(TAG_NUMBER); //creates its own async code.
+        LiveDataUtil liveDataUtil = new LiveDataUtil();
+        Calf returnedCalf = liveDataUtil.getValue(calfLiveDataList);
+
+        //Assert
+        String tagNumber = returnedCalf.getTagNumber();
+        Assert.assertEquals(TAG_NUMBER,tagNumber);
+
+
+    }
+
+    private void addObserver(LiveData<List<Calf>> liveDataQuery,Observer observer){
+        Handler handler = new Handler(Looper.getMainLooper()); //main thread queue
+        handler.post(new Runnable() { // task to run on the main thread queue
+            @Override
+            public void run() {
+                liveDataQuery.observeForever(observer);
+            }
+        });
 
     }
 

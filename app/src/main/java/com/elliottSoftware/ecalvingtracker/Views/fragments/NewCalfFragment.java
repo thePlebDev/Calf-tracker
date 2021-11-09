@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.BasicButton;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavigateHome;
 import com.example.ecalvingtracker.R;
 import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -93,7 +95,12 @@ public class NewCalfFragment extends Fragment {
         //THIS MIGHT BE A DEPENDENCY INJECTION
         //ADD THE CLICKS EVENTS TO THE FABs
         fabRight.setOnClickListener(new ButtonNavigateHomeSaveCalf(view,mCalfViewModel));
-        fabLeft.setOnClickListener(new ButtonNavigateHome());
+
+        fabLeft.setOnClickListener(new NavigateHome(new BasicButton()));
+
+        //TURNING THE VIEW INVISIBLE
+        view.findViewById(R.id.indeterminateBar).setVisibility(View.INVISIBLE);
+
 
 
 

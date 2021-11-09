@@ -5,6 +5,7 @@ import android.content.Context;
 import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.util.typeConverters.DateTypeConverter;
 
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,6 +58,8 @@ public abstract class CalfRoomDatabase  extends RoomDatabase {
                 CalfDao dao = INSTANCE.getCalfDao();
                 try {
                     dao.deleteAll();
+                    Calf testCalf = new Calf("TEST CALF", "TEST 1", new Date(),"Bull","test-1");
+                    dao.insert(testCalf);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

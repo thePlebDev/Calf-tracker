@@ -9,7 +9,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils.UpdateCalfInterfaceImplementation;
+import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.models.databaseAccess.CalfQueries;
+import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeUpdateCalf;
@@ -69,7 +71,8 @@ public class UpdateCalfFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState){
         snackBarCreation = new SnackBarBase();
         // THIS IS A DEPENDENCY THAT COULD BE INJECTED?
-        mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
+        CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
+        mCalfViewModel = new CalfViewModel(repository);
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
         this.calfQueries = new CalfQueries(mCalfViewModel,this.calfId);
         this.newUpdateCalfViewInitialization = new NewUpdateCalfViewInitialization(view);
