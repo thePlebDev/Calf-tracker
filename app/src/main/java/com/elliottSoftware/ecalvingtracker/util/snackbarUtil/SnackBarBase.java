@@ -18,8 +18,8 @@ public class SnackBarBase implements View.OnClickListener{
      *
      * @param view the current view of the fragment
      * **/
-    public void createSnackbar(View view){
-        Snackbar.make(view, R.string.tag_number,Snackbar.LENGTH_SHORT)
+    public void createSnackbar(View view,String message){
+        Snackbar.make(view, message,Snackbar.LENGTH_LONG)
                 .setAction(R.string.dismiss_tag_number, this).show();
     }
 

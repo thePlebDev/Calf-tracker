@@ -76,20 +76,20 @@ public class ButtonNavigateHomeSaveCalf extends ButtonNavigateHome{
  *
  * @param view the View that is given to setOnClickListener
  * **/
-    @Override
-    public void buttonAction(View view){
-        if(!checkIfTagNumber()){
-            createAndSaveCalf();
-            super.buttonAction(view);
-            snackBarCreation.createSnackbarCalfSaved(view,tagNumber.getText().toString());
-        }else{
-            //CREATE NEW CALF AND SAVE IT
-            snackBarCreation.createSnackbar(view);
-
-
-        }
-
-    }
+//    @Override
+//    public void buttonAction(View view){
+//        if(!checkIfTagNumber()){
+//            createAndSaveCalf();
+//            super.buttonAction(view);//this navigates back to home
+//            snackBarCreation.createSnackbarCalfSaved(view,tagNumber.getText().toString());
+//        }else{
+//            //CREATE NEW CALF AND SAVE IT
+//            snackBarCreation.createSnackbar(view);
+//
+//
+//        }
+//
+//    }
     /**
      * Called to create a Calf instance and save it via the appropriate ViewModel
      * **/
