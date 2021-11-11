@@ -9,8 +9,6 @@ import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.BasicButton;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.Button;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.SaveCalf;
 import com.example.ecalvingtracker.R;
@@ -18,7 +16,6 @@ import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 /**
  * base class used for implementing all initial set up for the
@@ -94,12 +91,18 @@ public class NewCalfFragment extends Fragment {
         this.view = view;
 
 
-
-        Button savedButton = new SaveCalf(new NavigateHome(new BasicButton()),mCalfViewModel,view);
+        //SETTING UP THE BUTTONS
+        Button savedButton = new SaveCalf(
+                new NavigateHome(new BasicButton(),R.id.action_newCalfFragment_to_mainFragment)
+                ,mCalfViewModel,view);
         fabRight.setOnClickListener(savedButton);
-        fabLeft.setOnClickListener(new NavigateHome(new BasicButton()));
 
-        //TURNING THE VIEW INVISIBLE
+        fabLeft.setOnClickListener(
+                new NavigateHome(
+                new BasicButton(),R.id.action_newCalfFragment_to_mainFragment)
+        );
+
+        //TURNING THE LOADING VIEW INVISIBLE
         view.findViewById(R.id.indeterminateBar).setVisibility(View.INVISIBLE);
 
 

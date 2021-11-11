@@ -4,30 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
-import com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils.UpdateCalfInterfaceImplementation;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.models.databaseAccess.CalfQueries;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeUpdateCalf;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NewUpdateCalfViewInitialization;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
-import com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils.SaveCalfInterface;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 /**

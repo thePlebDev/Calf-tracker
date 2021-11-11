@@ -8,21 +8,31 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 public class NavigateHome extends ButtonDecorator{
+    private int navigationId;
+
     public NavigateHome(Button baseButton) {
         super(baseButton);
+    }
+
+    public NavigateHome(Button baseButton,int navigationId){
+        super(baseButton);
+        this.navigationId = navigationId;
     }
 
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        navigateHome(v);
+        navigate(v,navigationId);
     }
 
-    public void navigateHome(View currentView){
-        //HARDCODE FOR NOW. LATER SET WITH A FIELD INJECTION
+
+
+   public void navigate(View currentView,int navigationId){
+
+       //HARDCODE FOR NOW. LATER SET WITH A FIELD INJECTION
         NavController navController = Navigation.findNavController(currentView); //THE VIEW THAT WAS CLICKED
-        navController.navigate(R.id.action_newCalfFragment_to_mainFragment);
+        navController.navigate(navigationId);
 
     }
 }

@@ -46,7 +46,10 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
         femaleButton.setOnClickListener(this::onClick);
         maleButton.setOnClickListener(this::onClick);
 
-        fabLeft.setOnClickListener(new ButtonNavigateHome(R.id.action_updateCalfFragment_to_mainFragment));
+        fabLeft.setOnClickListener(
+                new NavigateHome(
+                        new BasicButton(),R.id.action_newCalfFragment_to_mainFragment)
+        );
 
 
     }
