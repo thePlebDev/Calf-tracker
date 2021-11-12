@@ -6,6 +6,7 @@ import com.elliottSoftware.ecalvingtracker.daos.CalfDao;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -37,12 +38,12 @@ public class CalfViewModel extends ViewModel {
    /**
     * GETS THE CALF WITH THE MATCHING ID
     * **/
-//    public Calf getCalf(int calfId) throws ExecutionException, InterruptedException {
-//
-//       Calf calf = mRepository.getCalf(calfId);
-//        return calf;
-//
-//    }
+    public Resource<Calf> getCalf(int calfId){
+
+       Resource<Calf> calf = mRepository.getCalf(calfId);
+        return calf;
+
+    }
 
 
 

@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
-import com.elliottSoftware.ecalvingtracker.models.databaseAccess.CalfQueries;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NewUpdateCalfViewInitialization;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
@@ -30,9 +30,7 @@ public class UpdateCalfFragment extends Fragment{
     private CalfViewModel mCalfViewModel; //possibly shared
 
     private SnackBarBase snackBarCreation;
-    private CalfQueries calfQueries;
     private NewUpdateCalfViewInitialization newUpdateCalfViewInitialization;
-
 
 
     @Override
@@ -42,9 +40,6 @@ public class UpdateCalfFragment extends Fragment{
         View view = inflater.inflate(R.layout.new_calf_fragment,container,false);
         return view;
     }
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -63,11 +58,13 @@ public class UpdateCalfFragment extends Fragment{
         CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
         mCalfViewModel = new CalfViewModel(repository);
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
-        this.calfQueries = new CalfQueries(mCalfViewModel,this.calfId);
+
         this.newUpdateCalfViewInitialization = new NewUpdateCalfViewInitialization(view);
 
-        // THIS IS WHAT WE WANT TO MAKE REUSABLE
+        //ASYNC DATA CALL
+       Resource<Calf> retrievedCalf =  mCalfViewModel.getCalf(calfId);
 
+        // THIS IS WHAT WE WANT TO MAKE REUSABLE
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
 
 
@@ -80,12 +77,12 @@ public class UpdateCalfFragment extends Fragment{
          *
          * methods to get calf data
          * **/
-        newUpdateCalfViewInitialization.setSex(calfQueries.getCalfSex());
-        this.date = calfQueries.getCalfDate();
+        newUpdateCalfViewInitialization.setSex(retrievedCalf.getData().getSex());
+       this.date = retrievedCalf.getData().getDate();
 
-        newUpdateCalfViewInitialization.setUpdateTagNumber(calfQueries.getCalfTagNumber());
-        newUpdateCalfViewInitialization.setUpdateCciaNumber(calfQueries.getCalfCciaNumber());
-        newUpdateCalfViewInitialization.setUpdateTextDescription(calfQueries.getCalfDetails());
+        newUpdateCalfViewInitialization.setUpdateTagNumber(retrievedCalf.getData().getTagNumber());
+        newUpdateCalfViewInitialization.setUpdateCciaNumber(retrievedCalf.getData().getCciaNumber());
+        newUpdateCalfViewInitialization.setUpdateTextDescription(retrievedCalf.getData().getDetails());
 
         sexCheck(newUpdateCalfViewInitialization.getSex());
 
