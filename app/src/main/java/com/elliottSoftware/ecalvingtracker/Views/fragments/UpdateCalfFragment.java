@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.BasicButton;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.Button;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavHomeFromUpdate;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NewUpdateCalfViewInitialization;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 
@@ -31,6 +36,8 @@ public class UpdateCalfFragment extends Fragment{
 
     private SnackBarBase snackBarCreation;
     private NewUpdateCalfViewInitialization newUpdateCalfViewInitialization;
+
+    private FloatingActionButton fabLeft;
 
 
     @Override
@@ -67,6 +74,16 @@ public class UpdateCalfFragment extends Fragment{
         // THIS IS WHAT WE WANT TO MAKE REUSABLE
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
 
+
+        //BUTTON SET UP
+        fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
+        fabLeft.setOnClickListener(new NavHomeFromUpdate(new BasicButton()));
+
+
+//        fabLeft.setOnClickListener(
+//                new NavigateHome(new BasicButton(),R.id.action_updateCalfFragment_to_mainFragment)
+//        );
 
 
         newUpdateCalfViewInitialization.getFabRight().setOnClickListener(this::saveCalfMenuButton);

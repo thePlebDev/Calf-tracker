@@ -102,8 +102,7 @@ public class NewCalfFragment extends Fragment {
                 new BasicButton(),R.id.action_newCalfFragment_to_mainFragment)
         );
 
-        //TURNING THE LOADING VIEW INVISIBLE
-        view.findViewById(R.id.indeterminateBar).setVisibility(View.INVISIBLE);
+
 
 
 

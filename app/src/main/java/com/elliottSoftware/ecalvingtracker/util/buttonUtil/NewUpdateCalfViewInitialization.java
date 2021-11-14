@@ -43,15 +43,12 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
         maleButton = view.findViewById(R.id.radio_two);
 
         fabRight = view.findViewById(R.id.new_calf_fab_right);
-        fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
 
         femaleButton.setOnClickListener(this::onClick);
         maleButton.setOnClickListener(this::onClick);
 
-        fabLeft.setOnClickListener(
-                new NavigateHome(
-                        new BasicButton(),R.id.action_newCalfFragment_to_mainFragment)
-        );
+
 
 
     }
