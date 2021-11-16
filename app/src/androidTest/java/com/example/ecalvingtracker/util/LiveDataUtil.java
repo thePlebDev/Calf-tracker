@@ -10,6 +10,7 @@ import org.junit.Assert;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -19,15 +20,14 @@ public class LiveDataUtil {
 
     public Calf getValue(LiveData<List<Calf>> liveDataQuery) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        final Calf[] data = new Calf[1];
+        final Calf[] data = new Calf[2];
 
 
         Observer<List<Calf>> observer = new Observer<List<Calf>>() {
 
             @Override
             public void onChanged(List<Calf> listLiveData) {
-                latch.countDown(); // this releases all the threads
-
+                latch.countDown(); // this releases all the thread
                 data[0] = listLiveData.get(0);
 
 

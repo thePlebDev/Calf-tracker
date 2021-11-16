@@ -10,6 +10,8 @@ import com.elliottSoftware.ecalvingtracker.util.concurrent.delete.ConcurrentDele
 import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertBase;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.insert.ConcurrentInsertSingleItem;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieve;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieveBase;
+import com.elliottSoftware.ecalvingtracker.util.concurrent.retrieve.ConcurrentRetrieveSingleItem;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdate;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateBase;
 import com.elliottSoftware.ecalvingtracker.util.concurrent.update.ConcurrentUpdateSingleItem;
@@ -41,7 +43,7 @@ public class CalfRepository {
 
 
     public Resource<Calf> getCalf(int calfId) {
-        ConcurrentRetrieve concurrentRetrieve = new ConcurrentRetrieve(mCalfDao);
+        ConcurrentRetrieveBase concurrentRetrieve = new ConcurrentRetrieveSingleItem(mCalfDao);
         Resource<Calf>  resource = concurrentRetrieve.retrieveCalf(calfId);
 
         return resource;

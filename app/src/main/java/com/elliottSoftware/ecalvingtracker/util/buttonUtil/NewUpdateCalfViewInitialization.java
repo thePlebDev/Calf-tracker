@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  * between the update and save calf instances. Also, provide methods
  * that allow the user of this class to retrieve and update those
  * shared widget values.
+ *
+ * TODO: THIS SHOULD BE REPLACED WITH THE NEW DECORATOR PATTERN
  * **/
 public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
 
@@ -41,16 +43,15 @@ public class NewUpdateCalfViewInitialization  implements View.OnClickListener{
         maleButton = view.findViewById(R.id.radio_two);
 
         fabRight = view.findViewById(R.id.new_calf_fab_right);
-        fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
 
         femaleButton.setOnClickListener(this::onClick);
         maleButton.setOnClickListener(this::onClick);
 
-        fabLeft.setOnClickListener(new ButtonNavigateHome(R.id.action_updateCalfFragment_to_mainFragment));
+
 
 
     }
-
     //GETTERS
     public String getUpdateTagNumber(){
         return this.updateTagNumber.getText().toString();

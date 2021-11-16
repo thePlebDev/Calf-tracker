@@ -16,6 +16,7 @@ import com.elliottSoftware.ecalvingtracker.Views.adapters.CalfListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -29,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @author thePlebDev
  * **/
-public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener{
+public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener, SearchView.OnQueryTextListener{
     private RecyclerView recyclerView;
     private CalfViewModel mCalfViewModel;
 
@@ -48,28 +49,33 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
     }
 
     /**
-     * TODO: DELETE
+     * TODO: DELETE OR MOVE TO SUPER CLASS. I DON'T WANT MENU METHODS IN THIS CLASS
+     * this method is used to inflate our action view searchbar
      * **/
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
         inflater.inflate(R.menu.main_menu,menu);
+
+       MenuItem menuItem = menu.findItem(R.id.search_all);
+       SearchView searchView = (SearchView) menuItem.getActionView();
+
+       searchView.setQueryHint("Search Tag Number");
+       searchView.setSubmitButtonEnabled(true);
+
+       searchView.setOnQueryTextListener(this);
+
     }
 
-    /**
-     * TODO: DELETE
-     * **/
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch(item.getItemId()){
-            case R.id.delete_all:{
-                mCalfViewModel.deleteAll();
-                snackBarCreation.createSnackbarDeleteAllCalves(Globalview);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
 
 
     /**
@@ -85,7 +91,7 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         snackBarCreation = new SnackBarBase();
         CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
         mCalfViewModel = new CalfViewModel(repository);
-                //mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
+
         mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
             //update the cached copy of the words in the adapter
             //setting the data inside of our adapter
@@ -98,25 +104,13 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
         //THE DELETE SWIPE SHOULD GO HERE
         //HAS TO BE BELOW THE RECYCLERVIEW SETTING
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT ) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull  RecyclerView.ViewHolder viewHolder, @NonNull  RecyclerView.ViewHolder target) {
-                //THIS IS FOR DRAG AND DROP FUNCTIONALITY WHICH WE WILL NOT BE USING
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            mCalfViewModel.delete(adapter.getCalfAt(viewHolder.getAdapterPosition()));
-                snackBarCreation.createSnackbarCalfDeleted(Globalview);
-
-            }
-        }).attachToRecyclerView(recyclerView);
+        touchHelper(adapter);
 
 
 
-        //SETTING THE BUTTON
+        /**
+         * Used to handle the the FAB click logic and navigate to the next fragment
+         * **/
         FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.fab);
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -141,5 +135,26 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
         NavHostFragment.findNavController(this).navigate(action);
 
+    }
+
+    /**
+     * Used to add the swipe to delete functionality
+     * **/
+    public void touchHelper(CalfListAdapter adapter){
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT ) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull  RecyclerView.ViewHolder viewHolder, @NonNull  RecyclerView.ViewHolder target) {
+                //THIS IS FOR DRAG AND DROP FUNCTIONALITY WHICH WE WILL NOT BE USING
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                mCalfViewModel.delete(adapter.getCalfAt(viewHolder.getAdapterPosition()));
+                snackBarCreation.createSnackbarCalfDeleted(Globalview);
+
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 }

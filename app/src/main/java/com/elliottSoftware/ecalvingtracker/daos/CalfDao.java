@@ -40,4 +40,5 @@ public interface CalfDao {
 
     @Insert
     Long properInsert(Calf calf) throws Exception;
+
 }

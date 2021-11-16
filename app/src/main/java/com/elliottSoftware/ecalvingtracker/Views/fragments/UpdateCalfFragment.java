@@ -4,28 +4,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
-import com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils.UpdateCalfInterfaceImplementation;
-import com.elliottSoftware.ecalvingtracker.models.databaseAccess.CalfQueries;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHome;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeSaveCalf;
-import com.elliottSoftware.ecalvingtracker.util.buttonUtil.ButtonNavigateHomeUpdateCalf;
+import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
+import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
+import com.elliottSoftware.ecalvingtracker.util.Resource;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.BasicButton;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.Button;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavHomeFromUpdate;
+import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NavigateHome;
 import com.elliottSoftware.ecalvingtracker.util.buttonUtil.NewUpdateCalfViewInitialization;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
 import com.example.ecalvingtracker.R;
-import com.elliottSoftware.ecalvingtracker.Views.fragments.fragmentUtils.SaveCalfInterface;
 import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 /**
@@ -39,9 +35,9 @@ public class UpdateCalfFragment extends Fragment{
     private CalfViewModel mCalfViewModel; //possibly shared
 
     private SnackBarBase snackBarCreation;
-    private CalfQueries calfQueries;
     private NewUpdateCalfViewInitialization newUpdateCalfViewInitialization;
 
+    private FloatingActionButton fabLeft;
 
 
     @Override
@@ -51,9 +47,6 @@ public class UpdateCalfFragment extends Fragment{
         View view = inflater.inflate(R.layout.new_calf_fragment,container,false);
         return view;
     }
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -69,14 +62,23 @@ public class UpdateCalfFragment extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState){
         snackBarCreation = new SnackBarBase();
         // THIS IS A DEPENDENCY THAT COULD BE INJECTED?
-        mCalfViewModel = new ViewModelProvider(getActivity()).get(CalfViewModel.class);
+        CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
+        mCalfViewModel = new CalfViewModel(repository);
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
-        this.calfQueries = new CalfQueries(mCalfViewModel,this.calfId);
+
         this.newUpdateCalfViewInitialization = new NewUpdateCalfViewInitialization(view);
 
-        // THIS IS WHAT WE WANT TO MAKE REUSABLE
+        //ASYNC DATA CALL
+       Resource<Calf> retrievedCalf =  mCalfViewModel.getCalf(calfId);
 
+        // THIS IS WHAT WE WANT TO MAKE REUSABLE
         this.calfId = NewCalfFragmentArgs.fromBundle(getArguments()).getCalfId();
+
+
+        //BUTTON SET UP
+        fabLeft = view.findViewById(R.id.new_calf_fab_left);
+
+        fabLeft.setOnClickListener(new NavHomeFromUpdate(new BasicButton()));
 
 
 
@@ -88,12 +90,12 @@ public class UpdateCalfFragment extends Fragment{
          *
          * methods to get calf data
          * **/
-        newUpdateCalfViewInitialization.setSex(calfQueries.getCalfSex());
-        this.date = calfQueries.getCalfDate();
+        newUpdateCalfViewInitialization.setSex(retrievedCalf.getData().getSex());
+       this.date = retrievedCalf.getData().getDate();
 
-        newUpdateCalfViewInitialization.setUpdateTagNumber(calfQueries.getCalfTagNumber());
-        newUpdateCalfViewInitialization.setUpdateCciaNumber(calfQueries.getCalfCciaNumber());
-        newUpdateCalfViewInitialization.setUpdateTextDescription(calfQueries.getCalfDetails());
+        newUpdateCalfViewInitialization.setUpdateTagNumber(retrievedCalf.getData().getTagNumber());
+        newUpdateCalfViewInitialization.setUpdateCciaNumber(retrievedCalf.getData().getCciaNumber());
+        newUpdateCalfViewInitialization.setUpdateTextDescription(retrievedCalf.getData().getDetails());
 
         sexCheck(newUpdateCalfViewInitialization.getSex());
 
@@ -138,14 +140,5 @@ public class UpdateCalfFragment extends Fragment{
         Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment);
         snackBarCreation.createSnackbarCalfUpdated(view,tagNumber);
 
-
-
-
     }
-
-
-
-
-
-
 }
