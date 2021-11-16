@@ -16,6 +16,7 @@ import com.elliottSoftware.ecalvingtracker.Views.adapters.CalfListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -29,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @author thePlebDev
  * **/
-public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener{
+public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener, SearchView.OnQueryTextListener{
     private RecyclerView recyclerView;
     private CalfViewModel mCalfViewModel;
 
@@ -49,27 +50,32 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
     /**
      * TODO: DELETE OR MOVE TO SUPER CLASS. I DON'T WANT MENU METHODS IN THIS CLASS
+     * this method is used to inflate our action view searchbar
      * **/
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
         inflater.inflate(R.menu.main_menu,menu);
+
+       MenuItem menuItem = menu.findItem(R.id.search_all);
+       SearchView searchView = (SearchView) menuItem.getActionView();
+
+       searchView.setQueryHint("Search Tag Number");
+       searchView.setSubmitButtonEnabled(true);
+
+       searchView.setOnQueryTextListener(this);
+
     }
 
-    /**
-     * TODO: DELETE OR MOVE TO SUPER CLASS. I DON'T WANT MENU METHODS IN THIS CLASS
-     * **/
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        switch(item.getItemId()){
-            case R.id.delete_all:{
-                mCalfViewModel.deleteAll();
-                snackBarCreation.createSnackbarDeleteAllCalves(Globalview);
-                return true;
-            }
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
 
 
     /**
@@ -151,5 +157,4 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
             }
         }).attachToRecyclerView(recyclerView);
     }
-
 }

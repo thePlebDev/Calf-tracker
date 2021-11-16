@@ -81,10 +81,6 @@ public class UpdateCalfFragment extends Fragment{
         fabLeft.setOnClickListener(new NavHomeFromUpdate(new BasicButton()));
 
 
-//        fabLeft.setOnClickListener(
-//                new NavigateHome(new BasicButton(),R.id.action_updateCalfFragment_to_mainFragment)
-//        );
-
 
         newUpdateCalfViewInitialization.getFabRight().setOnClickListener(this::saveCalfMenuButton);
 
@@ -144,14 +140,5 @@ public class UpdateCalfFragment extends Fragment{
         Navigation.findNavController(view).navigate(R.id.action_updateCalfFragment_to_mainFragment);
         snackBarCreation.createSnackbarCalfUpdated(view,tagNumber);
 
-
-
-
     }
-
-
-
-
-
-
 }
