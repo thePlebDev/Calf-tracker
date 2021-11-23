@@ -75,7 +75,10 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        searchDatabase(query);
+        if(query != null){
+            searchDatabase(query);
+        }
+
         return true;
     }
 
