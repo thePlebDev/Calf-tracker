@@ -16,11 +16,25 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 public class LiveDataUtil {
+    private static class LiveDataHolder{
+        private List<Calf> liveDataList;
+
+        //GETTERS
+        public List<Calf> getLiveDataList(){
+            return this.liveDataList;
+        }
+        //SETTERS
+        public void setLiveDataList(List<Calf> liveDataList){
+            this.liveDataList  = liveDataList;
+        }
+    }
 
 
-    public Calf getValue(LiveData<List<Calf>> liveDataQuery) throws InterruptedException {
+    public List<Calf> getValue(LiveData<List<Calf>> liveDataQuery) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
-        final Calf[] data = new Calf[2];
+
+        LiveDataHolder dataHolder = new LiveDataHolder();
+
 
 
         Observer<List<Calf>> observer = new Observer<List<Calf>>() {
@@ -28,7 +42,9 @@ public class LiveDataUtil {
             @Override
             public void onChanged(List<Calf> listLiveData) {
                 latch.countDown(); // this releases all the thread
-                data[0] = listLiveData.get(0);
+
+                dataHolder.setLiveDataList(listLiveData);
+
 
 
             }
@@ -43,12 +59,7 @@ public class LiveDataUtil {
             throw new InterruptedException("latch.await() failure");
         }
 
-        if(data.length > 0){
-            return  data[0];
-        }else{
-            return null;
-        }
-
+        return dataHolder.getLiveDataList();
     }
 
     private void addObserver(LiveData<List<Calf>> liveDataQuery,Observer observer){

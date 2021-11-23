@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 import androidx.lifecycle.LiveData;
 
 public class ConcurrentRetrieveLiveDataTagNumberSearch extends ConcurrentRetrieveLiveDataBase{
-    ConcurrentRetrieveLiveDataTagNumberSearch(CalfDao calfDao) {
+    public ConcurrentRetrieveLiveDataTagNumberSearch(CalfDao calfDao) {
         super(calfDao);
     }
 
@@ -17,4 +17,8 @@ public class ConcurrentRetrieveLiveDataTagNumberSearch extends ConcurrentRetriev
     public LiveData<List<Calf>> retrieveItems(String retrieveData) throws ExecutionException, InterruptedException {
         return getCalfDao().searchCalfTagNumber(retrieveData);
     }
+
+
+
+
 }

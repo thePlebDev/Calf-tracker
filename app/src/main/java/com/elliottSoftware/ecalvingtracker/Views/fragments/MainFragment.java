@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.elliottSoftware.ecalvingtracker.models.Calf;
 import com.elliottSoftware.ecalvingtracker.models.CalfRoomDatabase;
 import com.elliottSoftware.ecalvingtracker.repositories.CalfRepository;
 import com.elliottSoftware.ecalvingtracker.util.snackbarUtil.SnackBarBase;
@@ -14,6 +15,8 @@ import com.example.ecalvingtracker.R;
 import com.elliottSoftware.ecalvingtracker.viewModels.CalfViewModel;
 import com.elliottSoftware.ecalvingtracker.Views.adapters.CalfListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -30,12 +33,13 @@ import androidx.recyclerview.widget.RecyclerView;
  *
  * @author thePlebDev
  * **/
-public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener, SearchView.OnQueryTextListener{
+public class MainFragment extends Fragment implements CalfListAdapter.OnCalfListener, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
     private RecyclerView recyclerView;
     private CalfViewModel mCalfViewModel;
 
     private SnackBarBase snackBarCreation;
     private View Globalview;
+    CalfListAdapter adapter;
 
     public MainFragment(){
         super(R.layout.main_fragmenr);
@@ -64,16 +68,27 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
        searchView.setOnQueryTextListener(this);
 
+
+      menuItem.setOnActionExpandListener(this);
+
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        searchDatabase(query);
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+
+        return true;
+    }
+
+    private void searchDatabase(String query){
+        mCalfViewModel.getCalvesWithTagNumber(query).observe(getViewLifecycleOwner(),calves -> {
+            this.adapter.submitList(calves);
+        });
     }
 
 
@@ -87,7 +102,8 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
      * **/
     public void onViewCreated (View view, Bundle savedInstanceState){
         Globalview = view;
-        final CalfListAdapter adapter = new CalfListAdapter(new CalfListAdapter.CalfDiff(),this);
+        this.adapter = new CalfListAdapter(new CalfListAdapter.CalfDiff(),this);
+
         snackBarCreation = new SnackBarBase();
         CalfRepository repository = new CalfRepository(CalfRoomDatabase.getDatabase(getActivity().getApplicationContext()).getCalfDao());
         mCalfViewModel = new CalfViewModel(repository);
@@ -95,16 +111,16 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
         mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
             //update the cached copy of the words in the adapter
             //setting the data inside of our adapter
-            adapter.submitList(calves);
+            this.adapter.submitList(calves);
         });
 
         recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(this.adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //THE DELETE SWIPE SHOULD GO HERE
         //HAS TO BE BELOW THE RECYCLERVIEW SETTING
-        touchHelper(adapter);
+        touchHelper(this.adapter);
 
 
 
@@ -156,5 +172,22 @@ public class MainFragment extends Fragment implements CalfListAdapter.OnCalfList
 
             }
         }).attachToRecyclerView(recyclerView);
+    }
+
+
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        mCalfViewModel.getAllCalves().observe(getViewLifecycleOwner(),calves -> {
+            //update the cached copy of the words in the adapter
+            //setting the data inside of our adapter
+            this.adapter.submitList(calves);
+        });
+        return true;
     }
 }

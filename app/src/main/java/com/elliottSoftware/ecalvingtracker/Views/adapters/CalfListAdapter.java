@@ -18,12 +18,24 @@ public class CalfListAdapter extends ListAdapter<Calf, CalfViewHolder> {
         this.onCalfListener = onCalfListener;
     }
 
+    /**
+     * Called to create a new ViewHolder but no data is bound to it yet.
+     *
+     * @param parent the ViewGroup that the new View will be added
+     * @param viewType the view type of the new view
+     * **/
     @Override
     public CalfViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
 
         return CalfViewHolder.create(parent,this.onCalfListener);
     }
 
+    /**
+     * RecyclerView calls this method in order to bind a ViewHolder with data
+     *
+     * @param holder the ViewHolder that needs data bound to it
+     * @param position the view type of the new view
+     * **/
     @Override
     public void onBindViewHolder( CalfViewHolder holder, int position) {
         Calf current = getItem(position); // current calf data

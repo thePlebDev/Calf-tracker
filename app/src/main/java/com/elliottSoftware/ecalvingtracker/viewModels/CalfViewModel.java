@@ -35,6 +35,15 @@ public class CalfViewModel extends ViewModel {
         return mAllCalves;
     }
 
+    /**
+     * GET ALL THE CALVES WITH MATCHING TAG NUMBERS
+     * **/
+    public LiveData<List<Calf>> getCalvesWithTagNumber(String tagNumber){
+        LiveData<List<Calf>> taggedCalves = mRepository.getTagNumberCalves(tagNumber);
+        return taggedCalves;
+
+    }
+
    /**
     * GETS THE CALF WITH THE MATCHING ID
     * **/
